@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default-layout">
+<th:block layout:fragment="content">
+    <style>
+    .form-control:disabled, .form-control[readonly] {
+        background-color: #ffffff;
+    }
+    </style>
+    <div class="container mt-5">
+        <h2>게시글 보기</h2>
+        <form>
+            <div class="form-group">
+                <label for="title">No.</label>
+                <input type="text" class="form-control" id="id" th:value="${post.id}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" class="form-control" id="title" th:value="${post.title}"  readonly>
+            </div>
+            <div class="form-group">
+                <label for="owner"> 작성자 </label> <!--나중에 회원이름으로 바꿀예정-->
+                <input type="text" class="form-control" id="owner" th:value="${post.owner}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="content"> 내용 </label>
+                <input type="text" class="form-control" id="content" th:value="${post.content}"  readonly>
+            </div>
+        </form>
+        <a href="/board/list" role="button" class="btn btn-secondary">back</a>
+    </div>
+</th:block>
+</html>

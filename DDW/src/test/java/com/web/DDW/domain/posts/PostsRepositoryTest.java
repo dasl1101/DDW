@@ -30,14 +30,14 @@ class PostsRepositoryTest {
         String title = "테스트 게시글";
         String content = "테스트 본문";
 
-        postsRepository.save(Posts.builder()
+        postsRepository.save(Posts.builder() //테이블 posts에 insert/update 쿼리를 실행 , id값 있으면 update, 없으면 insert 실행
                 .title(title)
                 .content(content)
-                .owner(1L)
+                .owner("ds1101")
                 .build());
 
         //when
-        List<Posts> postsList = postsRepository.findAll();
+        List<Posts> postsList = postsRepository.findAll();  //테이블 posts에 있는 모든 데이터를 조회
 
         //then
         Posts posts = postsList.get(0);
@@ -53,7 +53,7 @@ class PostsRepositoryTest {
         postsRepository.save(Posts.builder()
                 .title("title")
                 .content("content")
-                .owner(1L)
+                .owner("ds1101")
                 .build());
 
         //when
