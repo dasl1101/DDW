@@ -2,13 +2,18 @@ package com.web.DDW.service;
 
 import com.web.DDW.domain.posts.Posts;
 import com.web.DDW.domain.posts.PostsRepository;
+import com.web.DDW.web.dto.PostsListResponseDto;
 import com.web.DDW.web.dto.PostsResponseDto;
 import com.web.DDW.web.dto.PostsSaveRequestDto;
 import com.web.DDW.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -22,6 +27,26 @@ public class PostsService {
         return postsRepository.save(requestDto.toEntity()).getId();
     }
 
+
+
+    //게시글 단건조회
+    public PostsResponseDto findById (Long id){
+        Posts entity = postsRepository.findById(id).orElseThrow(()
+                ->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
+        return new PostsResponseDto(entity);
+    }
+
+    //게시글 전체조회
+    @Transactional(readOnly = true) //트랜잭션 범위는 유지하되, 조회 기능만 남겨두어 조회 속도가 개선됨
+    public List<PostsListResponseDto> findAllDesc(){
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new) //= .map(posts -> new PostsListResponseDto(posts))
+                //postRepository 결과로 넘어온 Posts의 Stream을 map을 통해 PostsListResponseDto로 변환
+                .collect(Collectors.toList());
+                //→ List로 반환
+    }
+
+    //게시글 수정
     @Transactional
     public Long update(Long id, PostsUpdateRequestDto requestDto) {
         Posts posts = postsRepository.findById(id)
@@ -31,12 +56,5 @@ public class PostsService {
 
         return id;
     }
-
-    public PostsResponseDto findById (Long id){
-        Posts entity = postsRepository.findById(id).orElseThrow(()
-                ->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
-        return new PostsResponseDto(entity);
-    }
-
 
 }
