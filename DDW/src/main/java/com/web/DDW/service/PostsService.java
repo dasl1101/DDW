@@ -50,11 +50,22 @@ public class PostsService {
     @Transactional
     public Long update(Long id, PostsUpdateRequestDto requestDto) {
         Posts posts = postsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다." ));
         //orElseThrow : 값이 없을 때 에러문구 표시
         posts.update(requestDto.getTitle(), requestDto.getContent());
 
         return id;
+    }
+
+    //게시글 삭제
+    @Transactional
+    public void delete(Long id){
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다."));
+        postsRepository.delete(posts);
+        //JpaRepository에서 delete 메소드를 지원하고 있음
+        //엔티티를 파라미터로 삭제할 수도 있고 deleteById 메소드를 이용하면 id로 삭제도 가능
+
     }
 
 }
