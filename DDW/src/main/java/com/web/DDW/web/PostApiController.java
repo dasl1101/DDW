@@ -1,11 +1,13 @@
 package com.web.DDW.web;
 
-import com.web.DDW.domain.posts.PostsRepository;
+import com.web.DDW.config.auth.LoginUser;
 import com.web.DDW.service.PostsService;
 import com.web.DDW.web.dto.PostsResponseDto;
 import com.web.DDW.web.dto.PostsSaveRequestDto;
 import com.web.DDW.web.dto.PostsUpdateRequestDto;
+import com.web.DDW.web.dto.UserDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -13,28 +15,28 @@ import org.springframework.web.bind.annotation.*;
 public class PostApiController {
     private final PostsService postsService;
 
+    /* CREATE */
     @PostMapping("/api/v1/posts")
-    public long save(@RequestBody PostsSaveRequestDto requestDto) {
-       //@RequestBody : HTTP 요청의 바디내용을 통째로 자바객체로 변환해서 매핑된 메소드 파라미터로 전달
-
-        return postsService.save(requestDto);
+    public Long save(@RequestBody PostsSaveRequestDto dto, @LoginUser UserDto.Response user) {
+        return postsService.save(dto, user.getNickName());
     }
 
     @GetMapping("/api/v1/posts/{id}")
-    public PostsResponseDto findById(@PathVariable Long id){
+    public PostsResponseDto findById(@PathVariable Long id,  @LoginUser UserDto.Response user){
         //findById : id값을 파라미터로 해서 select함
         return postsService.findById(id);
     }
 
     @PutMapping("/api/v1/posts/{id}")
-    public Long update(@PathVariable Long id,
-                       @RequestBody PostsUpdateRequestDto requestDto) {
-        return postsService.update(id, requestDto);
+    public ResponseEntity update(@PathVariable Long id,
+                                 @RequestBody PostsUpdateRequestDto requestDto) {
+        postsService.update(id, requestDto);
+        return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/api/vi/posts/{id}")
-    public long delete(@PathVariable Long id){
+    public ResponseEntity delete(@PathVariable Long id) {
         postsService.delete(id);
-        return id;
+        return ResponseEntity.ok(id);
     }
 }

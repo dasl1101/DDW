@@ -1,12 +1,15 @@
 package com.web.DDW.domain.posts;
 
 import com.web.DDW.domain.BaseTimeEntity;
+import com.web.DDW.domain.user.User;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor //기본 생성자 자동 추가  = Public Post(){}
 @Getter
 @Entity
@@ -21,16 +24,15 @@ public class Posts extends BaseTimeEntity{
     @Column(columnDefinition = "TEXT", length = 500, nullable = false)
     private String content;
 
+    @Column
     private String owner; //작성자명이라 String으로 변경
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int view;
 
-    @Builder //빌더 패턴 클래스 생성
-    //빌더를 통해 최종 값을 채운 후 DB삽입
-    public Posts(String title, String content, String owner){
-        this.title = title;
-        this.content = content;
-        this.owner = owner;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)  //User 입장에선 Posts와 다대일 관계이므로 @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     //제목 내용 수정
     public void update(String title, String content) {

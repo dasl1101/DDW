@@ -2,6 +2,8 @@ package com.web.DDW.service;
 
 import com.web.DDW.domain.posts.Posts;
 import com.web.DDW.domain.posts.PostsRepository;
+import com.web.DDW.domain.user.User;
+import com.web.DDW.domain.user.UserRepository;
 import com.web.DDW.web.dto.PostsListResponseDto;
 import com.web.DDW.web.dto.PostsResponseDto;
 import com.web.DDW.web.dto.PostsSaveRequestDto;
@@ -12,20 +14,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @RequiredArgsConstructor
 @Service
 public class PostsService {
     private final PostsRepository postsRepository;
-
+    private final UserRepository userRepository;
     @Transactional
     //메서드가 포함하고 있는 작업 중에 하나라도 실패할 경우 전체 작업을 취소한다.
+    public Long save(PostsSaveRequestDto dto, String nickName) {
+        // User 정보를 가져와 dto에 담아준다.
+        User user = userRepository.findByNickName(nickName);
+        dto.setUser(user);
+        Posts posts = dto.toEntity();
+        postsRepository.save(posts);
 
-    public Long save(PostsSaveRequestDto requestDto) {
-        return postsRepository.save(requestDto.toEntity()).getId();
+        return posts.getId();
     }
+
 
 
 
@@ -34,6 +42,12 @@ public class PostsService {
         Posts entity = postsRepository.findById(id).orElseThrow(()
                 ->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
         return new PostsResponseDto(entity);
+    }
+
+    /* Views Counting */
+    @Transactional
+    public int updateView(Long id) {
+        return postsRepository.updateView(id);
     }
 
     //게시글 전체조회
@@ -48,14 +62,15 @@ public class PostsService {
 
     //게시글 수정
     @Transactional
-    public Long update(Long id, PostsUpdateRequestDto requestDto) {
+    public void update(Long id, PostsUpdateRequestDto requestDto) {
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다." ));
         //orElseThrow : 값이 없을 때 에러문구 표시
         posts.update(requestDto.getTitle(), requestDto.getContent());
 
-        return id;
     }
+
+
 
     //게시글 삭제
     @Transactional
