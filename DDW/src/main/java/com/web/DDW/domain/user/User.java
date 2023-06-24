@@ -4,20 +4,24 @@ import com.web.DDW.domain.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Getter
 @AllArgsConstructor
-@Builder
+@NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "users")
 public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,  unique = true)
+    @Column(nullable = false, unique = true)
+    private String nickName; //회원가입 유저의 id, 소셜로그인 유저의 초기값=이메일주소
+
     private String name;
 
     @Column(nullable = false,  unique = true)
@@ -26,12 +30,11 @@ public class User extends BaseTimeEntity {
     @Column
     private String password;
 
-    @Column
-    private String google_token;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
 
     //회원정보 수정
     public void modify(String name, String password) {

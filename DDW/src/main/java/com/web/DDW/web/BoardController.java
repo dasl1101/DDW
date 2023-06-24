@@ -1,15 +1,14 @@
 package com.web.DDW.web;
 
+import com.web.DDW.config.auth.LoginUser;
 import com.web.DDW.service.PostsService;
 import com.web.DDW.web.dto.PostsResponseDto;
-import lombok.Getter;
+import com.web.DDW.web.dto.UserDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
@@ -19,11 +18,15 @@ public class BoardController {
 
     private final PostsService postsService;
 
+
     @GetMapping("/board/list")
-    public String list(Model model, HttpServletRequest request){
+    public String list(Model model, HttpServletRequest request, @LoginUser UserDto.Response user ){
         model.addAttribute("posts", postsService.findAllDesc());
         //Model : 서버 템플릿 엔진에서 사용할 수 있는 객체를 저장함
         // postsService.findAllDesc() 로 가져온 결과를 posts로 board.html에 전달
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
         return "board/list";
     }
 
