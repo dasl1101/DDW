@@ -19,7 +19,7 @@ public class BoardController {
 
     private final PostsService postsService;
 
-
+    //대문
     @GetMapping("/")
     public String index(Model model, @LoginUser UserDto.Response user ){
 
@@ -29,6 +29,7 @@ public class BoardController {
         return "index";
     }
 
+    //게시글리스트
     @GetMapping("/board/list")
     public String list(Model model, HttpServletRequest request, @LoginUser UserDto.Response user ){
         model.addAttribute("posts", postsService.findAllDesc());
@@ -40,6 +41,7 @@ public class BoardController {
         return "board/list";
     }
 
+    //게시글작성
     @GetMapping("/board/posts-write")
     public String postSave(Model model,@LoginUser UserDto.Response user){
         if (user != null) {
@@ -48,9 +50,9 @@ public class BoardController {
         return "board/posts-write";
     }
 
+    //게시글상세
     @GetMapping("/board/posts-view/{id}")
     public String view(@PathVariable Long id, Model model, @LoginUser UserDto.Response user) {
-        //if문 넣어서 유저이름=owner이면 posts-update페이지로 넘어가게 할 예정
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
 
@@ -68,5 +70,15 @@ public class BoardController {
             return "board/posts-view";
     }
 
+    //게시글수정
+    @GetMapping("/board/posts-update/{id}")
+    public String postsUpdate(@PathVariable Long id, Model model, @LoginUser UserDto.Response user) {
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
+        PostsResponseDto dto = postsService.findById(id);
+        model.addAttribute("post", dto);
 
+        return "board/posts-update";
+    }
 }
