@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default-layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate=~{layout/default-layout}>
 <th:block layout:fragment="content">
     <style>
     .form-control:disabled, .form-control[readonly] {
@@ -26,7 +26,19 @@
                 <input type="text" class="form-control" id="content" th:value="${post.content}"  readonly>
             </div>
         </form>
-        <a href="/board/list" role="button" class="btn btn-secondary">back</a>
+
+        <!-- If user exists-->
+        <div th:if="${user}">
+            <div th:if="${posts.owner}">
+                <a th:href="@{/board/list}" role="button" class="btn btn-info bi bi-arrow-return-left">목록</a>
+                <a th:href="@{/board/posts-update/{id}(id=${posts.id})}" role="button" class="btn btn-primary bi bi-pencil-square">수정</a>
+                <button type="button" class="btn btn-danger" id="btn-delete">삭제</button>
+            </div>
+        </div>
+        <div th:unless="${user}">
+            <a th:href="@{/board/list}" role="button" class="btn btn-info bi bi-arrow-return-left">목록</a>
+        <div>
+
     </div>
 </th:block>
 </html>

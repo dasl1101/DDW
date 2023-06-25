@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default-layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate=~{layout/default-layout}>
 <th:block layout:fragment="content">
     <div class="container mt-5">
     <h1>DDW 커뮤니티</h1>
         <div class="mt-3">
             <a href="/board/posts-write" class="btn btn-primary">글 등록</a>
-            <a href="/user/logout" class="btn btn-danger">Logout</a>
         </div>
             <table class="table table-striped">
             <thead>
@@ -14,6 +13,7 @@
                 <th scope="col">제목</th>
                 <th scope="col">작성자</th>
                 <th scope="col">최종수정일</th>
+                <th scope="col">조회수</th>
             </tr>
             </thead>
             <tbody>
@@ -22,6 +22,7 @@
                 <td><a th:href="@{/board/posts-view/{id}(id=${posts.id})}" th:text="${posts. title}">제목</a></td>
                 <td th:text="${posts.owner}">작성자</td>
                 <td th:text="${posts.modifiedDate}">최종수정일</td>
+                <td th:text="${posts.view}">조회수</td>
             </tr>
             </tbody>
         </table>

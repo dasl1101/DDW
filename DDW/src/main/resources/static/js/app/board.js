@@ -1,25 +1,20 @@
 var main = {
     init : function () {
-        var _this = this;
+        const _this = this;
         $('#btn-save').on('click', function () {
             _this.save();
         });
+
         $('#btn-update').on('click', function () {
-        //btn-update라는 id를 가진 HTML 엘리먼트에 click 이벤트가 발생할 때
-        //update function을 실행하도록 이벤트를 등록
             _this.update();
         });
 
         $('#btn-delete').on('click', function () {
             _this.delete();
         });
-
     },
-
-
-    //글등록
     save : function () {
-        var data = {
+        const data = {
             title: $('#title').val(),
             owner: $('#owner').val(),
             content: $('#content').val()
@@ -37,46 +32,56 @@ var main = {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-    }
-    //글수정
+    },
     update : function () {
-        var data = {
+        const data = {
             title: $('#title').val(),
             content: $('#content').val()
         };
 
-        var id = $('#id').val();
+        const id = $('#id').val();
+        const con_check = confirm("수정하시겠습니까?");
+         if (con_check === true) {
+            if (!data.title || data.title.trim() === "" || !data.content || data.content.trim() === "") {
+                alert("제목과 내용을 모두 입력해 주세요.");
+                return false;
+            } else {
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/api/v1/posts/'+id,
+                        dataType: 'json',
+                        contentType:'application/json; charset=utf-8',
+                        data: JSON.stringify(data)
+                    }).done(function() {
+                        alert('글이 수정되었습니다.');
+                        window.location.href = '/board/list';
+                    }).fail(function (error) {
+                        alert(JSON.stringify(error));
+                 });
+             }
+         }
+     },
+     delete : function () {
+        const id = $('#id').val();
+        const con_check = confirm("정말 삭제하시겠습니까?");
 
-        $.ajax({
-            type: 'PUT',
-            url: '/api/v1/posts/'+id,
-            dataType: 'json',
-            contentType:'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function() {
-            alert('글이 수정되었습니다.');
-            window.location.href = '/board/list';
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
-    }
-
-    //글삭제
-    delete : function () {
-            var id = $('#id').val();
-
+        if(con_check == true) {
             $.ajax({
                 type: 'DELETE',
                 url: '/api/v1/posts/'+id,
-                dataType: 'json',
-                contentType:'application/json; charset=utf-8'
-            }).done(function() {
-                alert('글이 삭제되었습니다.');
+                dataType: 'JSON',
+                contentType: 'application/json; charset=utf-8'
+
+            }).done(function () {
+                alert("삭제되었습니다.");
                 window.location.href = '/board/list';
             }).fail(function (error) {
                 alert(JSON.stringify(error));
             });
+        } else {
+            return false;
         }
+    }
 
 };
 

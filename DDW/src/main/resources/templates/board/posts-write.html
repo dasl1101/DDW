@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default-layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate=~{layout/default-layout}>
 <th:block layout:fragment="content">
   <div class="container mt-5">
     <h2>게시글 작성</h2>
-    <form id="frmWrite" action="/board/save" method="post">
+      <form>
       <div class="form-group">
         <label for="title">제목</label>
         <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
       </div>
-      <div class="form-group">
-        <label for="owner"> 작성자 </label> <!--나중에 회원이름으로 바꿀예정-->
-        <input type="text" class="form-control" id="owner" placeholder="작성자를 입력하세요">
-      </div>
+        <input type="hidden" class="form-control" id="owner" th:value="${user.nickName}">
       <div class="form-group">
         <label for="content"> 내용 </label>
         <textarea class="form-control" id="content" placeholder="내용을 입력하세요"></textarea>
       </div>
-    </form>
+      </form>
     <a href="/board/list" role="button" class="btn btn-secondary">취소</a>
     <button type="button" class="btn btn-primary" id="btn-save">등록</button>
   </div>

@@ -9,11 +9,12 @@ public class PostsResponseDto {
     private String title;
     private String content;
     private String owner;
-
+    private final Long userId;
     public PostsResponseDto (Posts entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.owner = entity.getOwner();
+        this.userId = entity.getUser().getId();
     }
 }
