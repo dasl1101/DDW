@@ -1,6 +1,6 @@
-package com.web.DDW.config.auth;
+package com.web.DDW.config.oauth;
 
-import com.web.DDW.config.auth.dto.OAuthAttributes;
+import com.web.DDW.config.oauth.dto.OAuthAttributes;
 import com.web.DDW.domain.user.User;
 import com.web.DDW.domain.user.UserRepository;
 import com.web.DDW.web.dto.UserDto;

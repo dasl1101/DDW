@@ -3,7 +3,6 @@ package com.web.DDW.web;
 import com.web.DDW.config.auth.LoginUser;
 import com.web.DDW.service.PostsService;
 import com.web.DDW.web.dto.PostsResponseDto;
-import com.web.DDW.web.dto.PostsUpdateRequestDto;
 import com.web.DDW.web.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

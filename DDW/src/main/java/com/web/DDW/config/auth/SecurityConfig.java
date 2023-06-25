@@ -1,13 +1,13 @@
 package com.web.DDW.config.auth;
 
-import com.web.DDW.domain.user.Role;
+import com.web.DDW.config.oauth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.client.userinfo.CustomUserTypesOAuth2UserService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @RequiredArgsConstructor
@@ -22,13 +22,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoring().antMatchers( "/css/**", "/js/**", "/img/**");
     }
 
+    @Bean
+    public BCryptPasswordEncoder encodePwd() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .csrf().ignoringAntMatchers("/api/**") // REST API 사용 예외처리
                 .and()
                 .authorizeRequests() //authorizeRequests가 선언되어야만 antMatchers옵션을 사용가능
-                .antMatchers("/", "/auth/**", "/board/**").permitAll() //전체유저 열람권한
+                .antMatchers("/", "/auth/**", "/board/list","/board/posts-view").permitAll() //전체유저 열람권한
                 .anyRequest().authenticated() //나머지는 인증된 사용자(로그인한 사용자)에게만 열람가능
                 .and()
                 .formLogin()

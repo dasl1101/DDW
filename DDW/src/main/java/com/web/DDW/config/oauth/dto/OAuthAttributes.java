@@ -1,4 +1,4 @@
-package com.web.DDW.config.auth.dto;
+package com.web.DDW.config.oauth.dto;
 
 import com.web.DDW.domain.user.Role;
 import com.web.DDW.domain.user.User;
