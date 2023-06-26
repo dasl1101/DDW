@@ -1,7 +1,6 @@
 package com.web.DDW.web;
 
 import com.web.DDW.config.validator.CustomValidators;
-import com.web.DDW.domain.user.User;
 import com.web.DDW.web.dto.UserDto;
 import com.web.DDW.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +30,7 @@ public class UserController {
     private final CustomValidators.EmailValidator EmailValidator;
     private final CustomValidators.NickNameValidator NickNameValidator;
 
-    // 커스텀 유효성 검증을 위해 추가
+    // 유효성 검증을 위해 추가
     @InitBinder
     public void validatorBinder(WebDataBinder binder) {
         binder.addValidators(EmailValidator);
@@ -68,7 +67,7 @@ public class UserController {
     //회원가입
     @PostMapping("/auth/joinProc")
     public String joinProc(@Valid UserDto.Request dto) {
-        //, Errors errors, Model model
+//        , Errors errors, Model model
 //        if (errors.hasErrors()) {
 //            // 회원가입 실패시 입력 데이터 값을 유지
 //            model.addAttribute("userDto", dto);
