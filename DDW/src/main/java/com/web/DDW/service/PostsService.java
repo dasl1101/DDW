@@ -4,15 +4,17 @@ import com.web.DDW.domain.posts.Posts;
 import com.web.DDW.domain.posts.PostsRepository;
 import com.web.DDW.domain.user.User;
 import com.web.DDW.domain.user.UserRepository;
-import com.web.DDW.web.dto.PostsListResponseDto;
-import com.web.DDW.web.dto.PostsResponseDto;
-import com.web.DDW.web.dto.PostsSaveRequestDto;
-import com.web.DDW.web.dto.PostsUpdateRequestDto;
+import com.web.DDW.web.dto.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,8 +35,6 @@ public class PostsService {
 
         return posts.getId();
     }
-
-
 
 
     //게시글 단건조회
@@ -83,4 +83,20 @@ public class PostsService {
 
     }
 
+    //페이지네이션
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllByOrderByIdDesc(Integer pageNum, Integer postsPerPage) {
+        Page<Posts> page = postsRepository.findAll(
+                // PageRequest의 page는 0부터 시작
+                PageRequest.of(pageNum - 1, postsPerPage,
+                        Sort.by(Sort.Direction.DESC, "id")
+                ));
+        return page.stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public Long count() { //게시판 전체 글 수를 반환
+        return postsRepository.count();
+    }
 }
