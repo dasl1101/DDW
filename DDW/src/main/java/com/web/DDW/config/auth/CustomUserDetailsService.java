@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-
+//Security User Service
 @RequiredArgsConstructor
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -18,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final HttpSession session;
 
-    /* username이 DB에 있는지 확인 */
+    // name이 DB에 있는지 확인
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         User user = userRepository.findByName(name).orElseThrow(() ->

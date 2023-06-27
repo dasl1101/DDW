@@ -1,7 +1,6 @@
 package com.web.DDW.web;
 
 import com.web.DDW.config.validator.CustomValidators;
-import com.web.DDW.domain.user.User;
 import com.web.DDW.web.dto.UserDto;
 import com.web.DDW.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +30,7 @@ public class UserController {
     private final CustomValidators.EmailValidator EmailValidator;
     private final CustomValidators.NickNameValidator NickNameValidator;
 
-    // 커스텀 유효성 검증을 위해 추가
+    // 유효성 검증을 위해 추가
     @InitBinder
     public void validatorBinder(WebDataBinder binder) {
         binder.addValidators(EmailValidator);
@@ -61,25 +60,26 @@ public class UserController {
 
     @GetMapping("/auth/join")
     public String join(Model model){
-        model.addAttribute("user", new User());
+        model.addAttribute("userDto", new UserDto.Request());
         return "user/user-join";
     }
 
     //회원가입
     @PostMapping("/auth/joinProc")
-    public String joinProc(@Valid UserDto.Request dto, Errors errors, Model model) {
-        if (errors.hasErrors()) {
-            // 회원가입 실패시 입력 데이터 값을 유지
-            model.addAttribute("userDto", dto);
-
-            // 유효성 통과 못한 필드와 메시지를 핸들링
-            Map<String, String> validatorResult = userService.validateHandling(errors);
-            for (String key : validatorResult.keySet()) {
-                model.addAttribute(key, validatorResult.get(key));
-            }
-            // 회원가입 페이지로 다시 리턴
-            return "/user/user-join";
-        }
+    public String joinProc(@Valid UserDto.Request dto) {
+//        , Errors errors, Model model
+//        if (errors.hasErrors()) {
+//            // 회원가입 실패시 입력 데이터 값을 유지
+//            model.addAttribute("userDto", dto);
+//
+//            // 유효성 통과 못한 필드와 메시지를 핸들링
+//            Map<String, String> validatorResult = userService.validateHandling(errors);
+//            for (String key : validatorResult.keySet()) {
+//                model.addAttribute(key, validatorResult.get(key));
+//            }
+//            // 회원가입 페이지로 다시 리턴
+//            return "/user/user-join";
+//        }
         userService.userJoin(dto);
         return "redirect:/auth/login";
     }
