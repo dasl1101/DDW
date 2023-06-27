@@ -1,0 +1,20 @@
+<th:block th:fragment="form">
+<div class = "card">
+  <form>
+    <input type="hidden" id="postsId" th:value="${posts.id}" />
+
+    <div th:if="${user}"> <!--사용자가 로그인한 경우-->
+    <div class = "card-body">
+      <textarea id="comment" class ="form-control" row="4" placeholder="댓글을 입력하세요"></textarea>
+    </div>
+    <div class = "card-footer" style="padding-bottom: 20px;">
+      <button id="btn-comment-save" class="btn btn-primary" style="float:right;">등록</button></div>
+    </div>
+
+    <div th:unless="${user}"><!--사용자가 로그인하지 않은 경우-->
+      <div class="card-body" style="font-size: small"><a href="/auth/login">로그인</a>후 댓글을 등록해 주세요.</div>
+    </div>
+
+  </form>
+</div>
+</th:block>

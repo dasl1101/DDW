@@ -2,6 +2,7 @@ package com.web.DDW.web;
 
 import com.web.DDW.config.auth.LoginUser;
 import com.web.DDW.service.PostsService;
+import com.web.DDW.web.dto.CommentDto;
 import com.web.DDW.web.dto.Paginator;
 import com.web.DDW.web.dto.PostsResponseDto;
 import com.web.DDW.web.dto.UserDto;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -71,7 +73,7 @@ public class BoardController {
     public String view(@PathVariable Long id, Model model, @LoginUser UserDto.Response user) {
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
-
+        List<CommentDto.Response> comments = dto.getComments();
         if (user != null) {
             model.addAttribute("user",  user);
 
@@ -80,6 +82,11 @@ public class BoardController {
             model.addAttribute("owner", true);
             }
         }
+
+        if (comments != null && !comments.isEmpty()) {
+            model.addAttribute("comments", comments); //댓글정보를 모델에 담음
+        }
+
         postsService.updateView(id); // views ++
         model.addAttribute("posts", dto);
 
