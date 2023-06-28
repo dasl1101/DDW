@@ -15,7 +15,7 @@ var main = {
 
         // 댓글 저장
         $('#btn-comment-save').on('click', function () {
-        _this.commentSave();
+            _this.commentSave();
         });
 
     },
@@ -99,20 +99,20 @@ var main = {
             // 공백 및 빈 문자열 체크
             if (!data.comment || data.comment.trim() === "") {
                 alert("공백 또는 입력하지 않은 부분이 있습니다.");
+
                 return false;
             } else {
-                $.ajax({
-                    type: 'POST',
-                    url: '/api/posts/' + data.postsId + '/comments',
-                    dataType: 'JSON',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data)
-                }).done(function () {
-                    alert('댓글이 등록되었습니다.');
-                    window.location.reload();
-                }).fail(function (error) {
-                    alert(JSON.stringify(error));
-                });
+               $.ajax({
+                 type: 'POST',
+                 url: '/api/v1/posts/' + data.postsId + '/comments',
+                 contentType: 'application/json; charset=utf-8',
+                 data: JSON.stringify(data)
+             }).done(function () {
+                 alert('댓글이 등록되었습니다.');
+                 window.location.reload();
+             }).fail(function (error) {
+                 alert(JSON.stringify(error));
+             });
             }
         }
 

@@ -2,18 +2,21 @@
 <br />
 <div class="card">
     <div class="card-header bi bi-chat-dots">
-        <span th:if="${comments}" th:text="${comments.size}">0</span> Comments
+        <span th:if="${comments}" th:text="${comments.size}">0</span> 개의 댓글이 있습니다.
     </div>
         <ul id="comment-box" class="list-group-flush">
             <tr th:each="comments : ${comments}">  <!--th:each : 반복 -->
             <li id="comment--" class="list-group-item d-flex justify-content-between">
-                <div>${comments.comment}</div>
+                <div th:text="${comments.comment}"></div>
                 <div class="d-flex">
-                        <div >작성자: ${user.nickName}"
-                        <span style="font-size: xx-small" th:text="${comment.createdDate}"></span>&nbsp;
+                    <div th:text="'작성자: ' + ${comments.nickName}"></div>
+                       <!--<span style="font-size: xx-small" th:text="${comments.createdDate}"></span>&nbsp;-->
+
+                        <div th:if="${isWriter}">
+                            <button class="badge"> 수정</button>
+                            <button class="badge">삭제</button>
                         </div>
-                        <button class="badge"> 수정</button>
-                        <button class="badge">삭제</button>
+
                 </div>
             </li>
         </ul>

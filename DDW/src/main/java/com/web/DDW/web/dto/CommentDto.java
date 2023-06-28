@@ -26,15 +26,16 @@ public class CommentDto {
 
         //dto->entity
         public Comment toEntity(){
-            Comment comment = Comment.builder()
+            Comment comments = Comment.builder()
                     .id(id)
                     .user(user)
                     .posts(posts)
+                    .comment(comment)
                     .createdDate(createdDate)
                     .modifiedDate(modifiedDate)
                     .build();
 
-            return comment;
+            return comments;
         }
 
     }
@@ -48,6 +49,7 @@ public class CommentDto {
         private String modifiedDate;
         private String nickName;
         private Long postsId;
+        private Long userId;
 
         public Response(Comment comment){
             this.id = comment.getId();
@@ -56,6 +58,7 @@ public class CommentDto {
             this.modifiedDate = comment.getModifiedDate();
             this.nickName = comment.getUser().getNickName();
             this.postsId = comment.getPosts().getId();
+            this.userId = comment.getUser().getId();
 
         }
     }

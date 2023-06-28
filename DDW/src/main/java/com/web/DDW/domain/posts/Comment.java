@@ -23,11 +23,11 @@ public class Comment extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="posts_id")
+    @JoinColumn(name = "posts_id")
     private Posts posts;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -41,9 +41,4 @@ public class Comment extends BaseTimeEntity {
     @LastModifiedDate
     private String modifiedDate;
 
-
-
-    public void update(String content, int secret){
-        this.comment = content;
-    }
 }

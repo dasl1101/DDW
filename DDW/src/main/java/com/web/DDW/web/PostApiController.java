@@ -17,8 +17,7 @@ public class PostApiController {
 
     /* CREATE */
     @PostMapping("/api/v1/posts")
-    public Long save(@RequestBody PostsSaveRequestDto dto, @LoginUser UserDto.Response user, int view) {
-        dto.setView(view); //글 수정시 조회수 초기화를 막기위한 코드
+    public Long save(@RequestBody PostsSaveRequestDto dto, @LoginUser UserDto.Response user) {
         return postsService.save(dto, user.getNickName());
     }
 
