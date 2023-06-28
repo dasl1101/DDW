@@ -2,23 +2,43 @@
 <br />
 <div class="card">
     <div class="card-header bi bi-chat-dots">
-        <span th:if="${comments}" th:text="${comments.size}">0</span> 개의 댓글이 있습니다.
+        <span th:text="${comments.size} > 0 ? ${comments.size} : 0"></span> 개의 댓글이 있습니다.
     </div>
         <ul id="comment-box" class="list-group-flush">
             <tr th:each="comments : ${comments}">  <!--th:each : 반복 -->
-            <li id="comment--" class="list-group-item d-flex justify-content-between">
-                <div th:text="${comments.comment}"></div>
-                <div class="d-flex">
-                    <div th:text="'작성자: ' + ${comments.nickName}"></div>
-                       <!--<span style="font-size: xx-small" th:text="${comments.createdDate}"></span>&nbsp;-->
-
+                <li th:id="'comments-' + ${comments.id}"  class="list-group-item">
+                    <div class = "row">
+                        <div th:text="${comments.nickName}"></div>
+                        <div th:text="'작성자?: ' + ${isWriter}"></div>
+                        <div th:text="${comments.createdDate}"></div>
                         <div th:if="${isWriter}">
-                            <button class="badge"> 수정</button>
-                            <button class="badge">삭제</button>
+                            <!-- 수정버튼 -->
+                            <a class="col-1" role="button" data-bs-toggle="collapse" aria-expanded="false" th:attr="data-bs-target='.multi-collapse-'+${comments.id}">
+                                <i class="bi bi-pencil-square"></i>수정
+                            </a>
+                            <!-- 삭제버튼 -->
+                            <a type="button" onclick="main.commentDelete([[${comments.postsId}]], [[${comments.id}]], [[${comments.userId}]], [[${user.id}]]);" class="badge">삭제</a>
                         </div>
+                    </div>
+                        <!-- 조회 -->
+                        <div th:classappend="'multi-collapse-'+${comments.id}" class="collapse multi-collapse show">
+                            <input type="hidden" th:value="${comments.id}"/>
+                            <span th:text="${comments.comment}"></span>
+                        </div>
+                        <!-- 수정 -->
+                        <div th:classappend="'multi-collapse-'+${comments.id}" class="collapse multi-collapse">
+                            <form  th:object="${comments.id}">
+                                <input type="hidden" th:value="${comments.id}" id="id"/>
+                                <input type="hidden" th:value="${comments.postsId}" id="postsId"/>
+                                <input type="hidden" th:value="${comments.userId}" id="writerUserId"/>
+                                <input type="hidden" id="sessionUserId" th:value="${user?.id}" />
 
-                </div>
-            </li>
+                                <textarea class="form-control" id="comment-content" rows="3" th:text="${comments.comment}"></textarea>
+                                <button type="button" id="btn-comment-update" class="btn btn-outline-primary bi bi-pencil-square"> 수정</button>
+                            </form>
+                        </div>
+                </li>
+            </tr>
         </ul>
 </div>
 </th:block>

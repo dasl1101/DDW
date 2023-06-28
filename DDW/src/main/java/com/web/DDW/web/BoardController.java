@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +75,7 @@ public class BoardController {
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
         List<CommentDto.Response> comments = dto.getComments();
+
         if (user != null) {
             model.addAttribute("user",  user);
 
@@ -94,6 +96,7 @@ public class BoardController {
         }
 
         postsService.updateView(id); // views ++
+
         model.addAttribute("posts", dto);
 
             return "board/posts-view";

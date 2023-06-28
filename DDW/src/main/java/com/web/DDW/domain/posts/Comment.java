@@ -41,4 +41,8 @@ public class Comment extends BaseTimeEntity {
     @LastModifiedDate
     private String modifiedDate;
 
+    public void update(String comment) {
+        this.comment = comment;
+    }
+
 }
