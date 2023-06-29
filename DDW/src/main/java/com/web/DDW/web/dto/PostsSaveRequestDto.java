@@ -20,6 +20,7 @@ public class PostsSaveRequestDto {
     private String content;
     private String owner;
     private User user;
+    private int view;
 
 
     public Posts toEntity() {
@@ -29,6 +30,7 @@ public class PostsSaveRequestDto {
                 .content(content)
                 .owner(owner)
                 .user(user)
+                .view(view)
                 .build();
         return posts;
     }

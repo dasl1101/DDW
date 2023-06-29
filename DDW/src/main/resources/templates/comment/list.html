@@ -1,0 +1,42 @@
+<th:block th:fragment="list">
+<br />
+<div class="card">
+    <div class="card-header bi bi-chat-dots" th:if="${comments}">
+        <span th:if="${comments.size() > 0}">[[${comments.size()}]] 개의 댓글이 있습니다.</span>
+        <span th:unless="${comments.size() > 0}">0 개의 댓글이 있습니다.</span>
+    </div>
+        <ul id="comment-box" class="list-group-flush">
+            <tr th:each="comments : ${comments}">  <!--th:each : 반복 -->
+                <li th:id="'comments-' + ${comments.id}"  class="list-group-item">
+                    <div class = "row">
+                        <div style="font-size: small" th:text="${comments.nickName}"></div>
+                        <div style="font-size: small" th:text="${comments.createdDate}"></div>
+                        <div th:if="${comments.userId} == ${user?.id}">
+                            <!-- 수정버튼 -->
+                            <a class="badge"role="button" data-bs-toggle="collapse" aria-expanded="false" th:attr="data-bs-target='.multi-collapse-'+${comments.id}">수정</a>
+                            <!-- 삭제버튼 -->
+                            <a type="button"th:onclick="main.commentDelete([[${comments.postsId}]], [[${comments.id}]]);" class="badge">삭제</a>
+                        </div>
+                    </div>
+                        <!-- 조회 -->
+                        <div th:classappend="'multi-collapse-'+${comments.id}" class="collapse multi-collapse show">
+                            <input type="hidden" th:value="${comments.id}"/>
+                            <span th:text="${comments.comment}"></span>
+                        </div>
+                        <!-- 수정 -->
+                        <div th:classappend="'multi-collapse-'+${comments.id}" class="collapse multi-collapse">
+                            <form  th:object="${comments.id}">
+                                <input type="hidden" th:value="${comments.id}" id="id"/>
+                                <input type="hidden" th:value="${comments.postsId}" id="postsId"/>
+                                <input type="hidden" th:value="${comments.userId}" id="writerUserId"/>
+                                <input type="hidden" id="sessionUserId" th:value="${user?.id}" />
+
+                                <textarea class="form-control" id="comment-content" rows="3" th:text="${comments.comment}"></textarea>
+                                <button type="button" id="btn-comment-update" class="btn btn-outline-primary bi bi-pencil-square"> 수정</button>
+                            </form>
+                        </div>
+                </li>
+            </tr>
+        </ul>
+</div>
+</th:block>

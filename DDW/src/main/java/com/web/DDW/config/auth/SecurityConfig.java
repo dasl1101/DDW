@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().ignoringAntMatchers("/api/**") // REST API 사용 예외처리
                 .and()
                 .authorizeRequests() //authorizeRequests가 선언되어야만 antMatchers옵션을 사용가능
-                .antMatchers("/", "/auth/**", "/board/list","/board/posts-view").permitAll() //전체유저 열람권한
+                .antMatchers("/", "/auth/**", "/board/list","/board/posts-view/**").permitAll() //전체유저 열람권한
                 .anyRequest().authenticated() //나머지는 인증된 사용자(로그인한 사용자)에게만 열람가능
                 .and()
                 .formLogin()
