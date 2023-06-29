@@ -23,15 +23,13 @@ public class CommentApiController {
     @PutMapping({"/api/v1/posts/{postsId}/comments/{id}"})
     public ResponseEntity<Long> update (@PathVariable Long postsId, @PathVariable  Long id, @RequestBody CommentDto.Request dto){
         commentService.update(postsId, id, dto);
-        System.out.println("댓글수정시작");
         return ResponseEntity.ok(id);
     }
 
     //댓글삭제
-    @DeleteMapping("/posts/{postsId}/comments/{id}")
+    @DeleteMapping("/api/v1/posts/{postsId}/comments/{id}")
     public ResponseEntity<Long> delete(@PathVariable Long postsId, @PathVariable Long id){
         commentService.delete(postsId, id);
-        System.out.println("댓글삭제시작");
         return ResponseEntity.ok(id);
     }
 

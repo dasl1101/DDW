@@ -1,23 +1,21 @@
 <th:block th:fragment="list">
 <br />
 <div class="card">
-    <div class="card-header bi bi-chat-dots">
-        <span th:text="${comments.size} > 0 ? ${comments.size} : 0"></span> 개의 댓글이 있습니다.
+    <div class="card-header bi bi-chat-dots" th:if="${comments}">
+        <span th:if="${comments.size() > 0}">[[${comments.size()}]] 개의 댓글이 있습니다.</span>
+        <span th:unless="${comments.size() > 0}">0 개의 댓글이 있습니다.</span>
     </div>
         <ul id="comment-box" class="list-group-flush">
             <tr th:each="comments : ${comments}">  <!--th:each : 반복 -->
                 <li th:id="'comments-' + ${comments.id}"  class="list-group-item">
                     <div class = "row">
-                        <div th:text="${comments.nickName}"></div>
-                        <div th:text="'작성자?: ' + ${isWriter}"></div>
-                        <div th:text="${comments.createdDate}"></div>
-                        <div th:if="${isWriter}">
+                        <div style="font-size: small" th:text="${comments.nickName}"></div>
+                        <div style="font-size: small" th:text="${comments.createdDate}"></div>
+                        <div th:if="${comments.userId} == ${user?.id}">
                             <!-- 수정버튼 -->
-                            <a class="col-1" role="button" data-bs-toggle="collapse" aria-expanded="false" th:attr="data-bs-target='.multi-collapse-'+${comments.id}">
-                                <i class="bi bi-pencil-square"></i>수정
-                            </a>
+                            <a class="badge"role="button" data-bs-toggle="collapse" aria-expanded="false" th:attr="data-bs-target='.multi-collapse-'+${comments.id}">수정</a>
                             <!-- 삭제버튼 -->
-                            <a type="button" onclick="main.commentDelete([[${comments.postsId}]], [[${comments.id}]], [[${comments.userId}]], [[${user.id}]]);" class="badge">삭제</a>
+                            <a type="button"th:onclick="main.commentDelete([[${comments.postsId}]], [[${comments.id}]]);" class="badge">삭제</a>
                         </div>
                     </div>
                         <!-- 조회 -->

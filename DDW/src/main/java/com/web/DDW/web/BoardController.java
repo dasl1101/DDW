@@ -83,12 +83,6 @@ public class BoardController {
             if (dto.getUserId().equals(user.getId())) {
             model.addAttribute("owner", true);
             }
-            // 댓글 작성자 본인인지 확인
-            for (int i = 0; i < comments.size(); i++) {
-                //댓글 작성자 id와 현재 사용자 id를 비교해 true/false 판단
-                boolean isWriter = comments.get(i).getUserId().equals(user.getId());
-                model.addAttribute("isWriter",isWriter);
-            }
         }
 
         if (comments != null && !comments.isEmpty()) {

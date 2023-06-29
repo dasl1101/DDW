@@ -1,4 +1,4 @@
-var main = {
+const main = {
     init : function () {
         const _this = this;
         $('#btn-save').on('click', function () {
@@ -107,7 +107,6 @@ var main = {
             // 공백 및 빈 문자열 체크
             if (!data.comment || data.comment.trim() === "") {
                 alert("공백 또는 입력하지 않은 부분이 있습니다.");
-
                 return false;
             } else {
                $.ajax({
@@ -201,27 +200,20 @@ var main = {
             }
         },
       //댓글 삭제
-      commentDelete : function (
-            postsId, commentId, commentWriterId, sessionUserId) {
-             alert("본인이 작성한 댓글만 삭제 가능합니다." +  postsId );
-           // 본인이 작성한 글인지 확인
-           if (commentWriterId !== sessionUserId) {
-               alert("본인이 작성한 댓글만 삭제 가능합니다.");
-           } else {
+      commentDelete : function (postsId, commentId){
                const con_check = confirm("삭제하시겠습니까?");
                console.log("postId : " + postsId + "commentId : " + commentId);
                if (con_check === true) {
                    $.ajax({
                        type: 'DELETE',
-                       url: '/api/vi/posts/' + postsId + '/comments/' + commentId,
+                       url: '/api/v1/posts/' + postsId + '/comments/' + commentId,
                        dataType: 'JSON',
                    }).done(function () {
                        alert('댓글이 삭제되었습니다.');
                        window.location.reload();
                    }).fail(function (error) {
                        alert(JSON.stringify(error));
-                   });
-               }
+               });
            }
        }
 

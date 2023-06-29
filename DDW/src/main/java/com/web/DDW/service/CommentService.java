@@ -37,7 +37,6 @@ public class CommentService {
     public void update(Long postsId, Long id, CommentDto.Request dto){
         Comment comment = commentRepository.findByPostsIdAndId(postsId, id).orElseThrow(() ->
                 new IllegalArgumentException("해당 댓글이 존재하지 않습니다. " + id));
-
         comment.update(dto.getComment());
     }
 
@@ -45,7 +44,6 @@ public class CommentService {
     public void delete(Long postsId, Long id){
         Comment comment = commentRepository.findByPostsIdAndId(postsId, id).orElseThrow(() ->
                 new IllegalArgumentException("해당 댓글이 존재하지 않습니다. " + id));
-        System.out.println("댓글삭제시작2");
         commentRepository.delete(comment);
     }
 }
