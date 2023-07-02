@@ -10,6 +10,7 @@ import java.util.List;
 public interface PostsRepository extends JpaRepository<Posts, Long> {
     //DB Layer 접근자 = DAO
     @Query("SELECT p FROM Posts p ORDER BY p.id DESC") //jpa에서 제공하지 않는 메소드는 쿼리로 작성
+    //select p<-왜이렇게 쓰는지 알아보기
     List<Posts> findAllDesc();
 
     @Modifying

@@ -114,7 +114,7 @@ const main = {
                  url: '/api/v1/posts/' + data.postsId + '/comments',
                  contentType: 'application/json; charset=utf-8',
                  data: JSON.stringify(data)
-             }).done(function () {
+             }).always(function () {
                  alert('댓글이 등록되었습니다.');
                  window.location.reload();
              }).fail(function (error) {

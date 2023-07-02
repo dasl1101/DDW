@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.List;
@@ -39,6 +41,14 @@ public class Posts extends BaseTimeEntity{
     @OneToMany(mappedBy = "posts", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) //게시글이 삭제되면 댓글도 삭제
     @OrderBy("id asc") // 댓글 정렬
     private List<Comment> comments;
+
+    @Column(name = "created_date")
+    @CreatedDate
+    private String createdDate;
+
+    @Column(name = "modified_date")
+    @LastModifiedDate
+    private String modifiedDate;
 
     //제목 내용 수정
     public void update(String title, String content) {

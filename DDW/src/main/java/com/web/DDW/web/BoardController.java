@@ -39,7 +39,7 @@ public class BoardController {
 
     //게시글리스트
     @GetMapping("/board/list")
-    public String list(Model model, HttpServletRequest request, @LoginUser UserDto.Response user,
+    public String list(Model model, @LoginUser UserDto.Response user,
                        @RequestParam(value = "page", defaultValue = "1") Integer page ){
         model.addAttribute("posts", postsService.findAllDesc());
         //Model : 서버 템플릿 엔진에서 사용할 수 있는 객체를 저장함
