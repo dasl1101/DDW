@@ -20,6 +20,7 @@ public class CommentService {
     @Transactional
     public Long commentSave(String nickName, Long id,  CommentDto.Request dto){
         User user = userRepository.findByNickName(nickName);
+
         Posts posts = postsRepository.findById(id).orElseThrow(() ->
                     new IllegalArgumentException("해당 게시글이 존재하지 않습니다." + id));
 
@@ -28,7 +29,7 @@ public class CommentService {
 
         Comment comment = dto.toEntity();
         commentRepository.save(comment);
-
+        System.out.println("::::::::::::::::::::::dto.getId() : " + dto.getUser());
         return dto.getId();
 
     }

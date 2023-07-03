@@ -37,6 +37,8 @@ public class UserService {
         // 유효성 검사, 중복 검사에 실패한 필드 목록을 받음
         for (FieldError error : errors.getFieldErrors()) {
             String validKeyName = String.format("valid_%s", error.getField());
+            System.out.println(":::::::::::::::validKeyName : "+ validKeyName);
+            System.out.println(":::::::::::::::error.getDefaultMessage() : "+ error.getDefaultMessage());
             validatorResult.put(validKeyName, error.getDefaultMessage());
         }
         return validatorResult;

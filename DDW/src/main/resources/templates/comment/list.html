@@ -1,5 +1,6 @@
 <th:block th:fragment="list">
 <br />
+
 <div class="card">
     <div class="card-header bi bi-chat-dots" th:if="${comments}">
         <span th:if="${comments.size() > 0}">[[${comments.size()}]] 개의 댓글이 있습니다.</span>
@@ -23,6 +24,7 @@
                             <input type="hidden" th:value="${comments.id}"/>
                             <span th:text="${comments.comment}"></span>
                         </div>
+
                         <!-- 수정 -->
                         <div th:classappend="'multi-collapse-'+${comments.id}" class="collapse multi-collapse">
                             <form  th:object="${comments.id}">
