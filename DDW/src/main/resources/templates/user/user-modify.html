@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--회원정보 수정 페이지-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate=~{layout/default-layout}>
+<th:block layout:fragment="content">
+  <style>
+    .fieldError{
+        border-color: red;
+        color : red;
+    }
+    .form-control:disabled, .form-control[readonly] {
+        background-color: #ffffff;
+    }
+  </style>
+
+  <form>
+    <div class="container">
+      <h1>회원정보 수정</h1>
+      <div class="form-group">
+
+        <label th:for = "name">아이디</label>
+        <input type="hidden" id="id" th:value="${user.id}"/>
+        <input type="hidden" id="modifiedDate" th:value="${user.modifiedDate}"/>
+        <input type="text" id="name" th:value="${user.name}" class="form-control" readonly />
+
+        <div class="form-group">
+          <label th:for = "nickName">닉네임</label>
+          <input type="text" id="nickName" th:value="${user.nickName}" class="form-control" placeholder="수정할 닉네임을 입력해주세요"/>
+        </div>
+
+        <div class="form-group">
+          <label>비밀번호</label>
+          <input type="password" id="password"  class="form-control"  placeholder="수정할 비밀번호를 입력해주세요"/>
+        </div>
+        <div class="form-group">
+          <label>이메일</label>
+          <input type="text" id="email" th:value="${user.email}" class="form-control" readonly/>
+        </div>
+        <button class="btn btn-primary bi bi-check-lg" id="btn-user-modify" >수정</button>
+        <a href="/board/list" role="button" class="btn btn-info bi bi-arrow-return-left"> 목록</a>
+      </div>
+    </div>
+  </form>
+</th:block>

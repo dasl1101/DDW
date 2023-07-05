@@ -37,8 +37,8 @@ public class User extends BaseTimeEntity {
 
 
     //회원정보 수정
-    public void modify(String name, String password) {
-        this.name = name;
+    public void modify(String nickName, String password) {
+        this.nickName = nickName;
         this.password = password;
     }
 

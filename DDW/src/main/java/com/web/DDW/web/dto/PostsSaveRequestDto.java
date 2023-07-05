@@ -18,6 +18,7 @@ public class PostsSaveRequestDto {
     private Long id;
     private String title;
     private String content;
+    private String createdDate, modifiedDate;
     private String owner;
     private User user;
     private int view;
@@ -30,7 +31,7 @@ public class PostsSaveRequestDto {
                 .content(content)
                 .owner(owner)
                 .user(user)
-                .view(view)
+                .view(0)
                 .build();
         return posts;
     }

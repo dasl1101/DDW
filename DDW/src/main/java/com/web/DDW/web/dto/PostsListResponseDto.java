@@ -13,7 +13,7 @@ public class PostsListResponseDto {
     private String title;
     private String owner;
     private int view;
-    private String modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+    private String modifiedDate;
     public PostsListResponseDto(Posts entity){
         this.id = entity.getId();
         this.title = entity.getTitle();

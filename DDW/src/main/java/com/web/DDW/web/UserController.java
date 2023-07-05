@@ -1,6 +1,8 @@
 package com.web.DDW.web;
 
+import com.web.DDW.config.auth.LoginUser;
 import com.web.DDW.config.validator.CustomValidators;
+import com.web.DDW.domain.user.User;
 import com.web.DDW.web.dto.UserDto;
 import com.web.DDW.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Map;
 
@@ -86,5 +89,14 @@ public class UserController {
         return "redirect:/auth/login";
     }
 
+
+    /* 회원정보 수정 */
+    @GetMapping("/user/user-modify")
+    public String modify(@LoginUser UserDto.Response user, Model model) {
+        if (user != null) {
+        model.addAttribute("user", user);
+        }
+    return "/user/user-modify";
+    }
 
 }

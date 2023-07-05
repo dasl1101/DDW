@@ -1,6 +1,7 @@
 package com.web.DDW.service;
 
 
+import com.web.DDW.domain.user.User;
 import com.web.DDW.domain.user.UserRepository;
 import com.web.DDW.web.dto.UserDto;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,15 @@ public class UserService {
         return validatorResult;
     }
 
+    // 회원수정 (dirty checking) */
+    @Transactional
+    public void modify(UserDto.Request dto) {
+        User user = userRepository.findById(dto.toEntity().getId()).orElseThrow(() ->
+                new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+
+        String encPassword = encoder.encode(dto.getPassword());
+        user.modify(dto.getNickName(), encPassword);
+    }
 
 
 }

@@ -26,6 +26,11 @@ const main = {
             });
         });
 
+        // 회원 수정
+        $('#btn-user-modify').on('click', function () {
+            _this.userModify();
+        });
+
     },
     save : function () {
         const data = {
@@ -37,7 +42,7 @@ const main = {
         $.ajax({
             type: 'POST',
             url: '/api/v1/posts',
-            dataType: 'json',
+            dataType: 'JSON',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
@@ -215,8 +220,49 @@ const main = {
                        alert(JSON.stringify(error));
                });
            }
-       }
+       },
 
+    /** 회원 수정 */
+    userModify : function () {
+        const data = {
+            id: $('#id').val(),
+            modifiedDate: $('#modifiedDate').val(),
+            name: $('#name').val(),
+            nickName: $('#nickName').val(),
+            password: $('#password').val()
+        }
+        //if(!data.nickName || data.nickName.trim() === "" || !data.password || data.password.trim() === "") {
+        //    alert("공백 또는 입력하지 않은 부분이 있습니다.");
+        //    return false;}
+        if(!/^[ㄱ-ㅎ가-힣a-zA-Z0-9-_]{2,10}$/.test(data.nickName)) {
+            alert("닉네임은 특수문자를 제외한 2~10자리여야 합니다.");
+            $('#nickName').focus();
+            return false;
+        }
+        const con_check = confirm("수정하시겠습니까?");
+        if (con_check === true) {
+            $.ajax({
+                type: "PUT",
+                url: "/api/v1/user",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+
+            }).done(function () {
+                alert("회원수정이 완료되었습니다.");
+                window.location.href = "/";
+
+            }).fail(function (error) {
+                if (error.status === 500) {
+                    alert("이미 사용중인 닉네임 입니다.");
+                    $('#nickName').focus();
+                } else {
+                    alert(JSON.stringify(error));
+                }
+            });
+        } else {
+            return false;
+        }
+    }
 
 };
 

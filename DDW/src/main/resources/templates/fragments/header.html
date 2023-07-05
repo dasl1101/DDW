@@ -49,9 +49,10 @@
                             <li class="nav-item"><a th:unless="${user != null}" href="/auth/join" class="nav-link"> 회원가입</a></li>
 
                             <li class="nav-item dropdown">
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">내 정보</a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                                    <li><a class="dropdown-item" href="#!">마이페이지</a></li>
+                                    <li><a class="dropdown-item" href="/user/user-modify">마이페이지</a></li>
                                     <li><hr class="dropdown-divider" /></li>
                                     <li class="nav-item"><a th:if="${user != null}" href="/logout" class="dropdown-item">로그아웃</a></li>
                                 </ul>
