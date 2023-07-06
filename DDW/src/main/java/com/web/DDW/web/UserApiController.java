@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -28,7 +27,7 @@ public class UserApiController {
     public ResponseEntity<String> modify(@RequestBody UserDto.Request dto) {
         userService.modify(dto);
 
-        /* 변경된 세션 등록 */
+        // 변경된 세션 등록
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(dto.getName(), dto.getPassword()));
 
