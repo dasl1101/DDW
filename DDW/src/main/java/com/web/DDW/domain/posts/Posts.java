@@ -32,7 +32,7 @@ public class Posts extends BaseTimeEntity{
     private String owner; //작성자명이라 String으로 변경
 
     @Column(columnDefinition = "integer default 0", nullable = false)
-    private int view;
+    private int view; //조회수
 
     @ManyToOne(fetch = FetchType.LAZY)  //User 입장에선 Posts와 다대일 관계이므로 @ManyToOne
     @JoinColumn(name = "user_id")
