@@ -9,21 +9,26 @@
                 <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
             </div>
             <div class="form-group">
-                <div class="col-md-10" style="margin-left:80px;">
-                    <textarea id="summernote" rows="5" name="content" style="width:100%; height:250px;"></textarea>
-                </div>
+                <label for="name">상품명</label>
+                <input type="text" class="form-control" id="name" placeholder="제목을 입력하세요">
+            </div>
+            <div class="form-group">
+                <label for="price">가격</label>
+                <input type="text" class="form-control" id="price" placeholder="제목을 입력하세요">
             </div>
             <input type="hidden" class="form-control" id="owner" th:value="${user.nickName}">
+            <div class="form-group">
+                <textarea id="content" rows="5" name="content" style="width:100%; height:250px;"></textarea>
+            </div>
+
     </form>
         <a href="/shop/shop-list" role="button" class="btn btn-secondary">취소</a>
         <button type="button" class="btn btn-primary" id="btn-saveShop">등록</button>
     </div>
 
     <script type="text/javascript">
-    $('#summernote').summernote({
-        // 에디터 높이
+    $('#content').summernote({
         height: 150,
-        // 에디터 한글 설정
         lang: "ko-KR",
         // 에디터에 커서 이동 (input창의 autofocus라고 생각)
         focus : true,
@@ -36,12 +41,12 @@
             ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
             // 글자색
             ['color', ['forecolor','color']],
-            // 표만들기
-            ['table', ['table']],
             // 글머리 기호, 번호매기기, 문단정렬
             ['para', ['ul', 'ol', 'paragraph']],
             // 줄간격
             ['height', ['height']],
+            // 그림첨부, 동영상첨부
+		    ['insert',['picture','video']],
             // 코드보기, 확대해서보기, 도움말
             ['view', ['codeview','fullscreen', 'help']]
         ],
@@ -51,27 +56,7 @@
         fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 
     });
-
-    function sendFile(file, el) {
-      var form_data = new FormData();
-      form_data.append('file', file);
-      $.ajax({
-        data: form_data,
-        type: "POST",
-        url: '/img',
-        cache: false,
-        contentType: false,
-        enctype: 'multipart/form-data',
-        processData: false,
-        success: function(url) {
-          $(el).summernote('editor.insertImage', url);
-          $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
-        }
-      });
-    }
-
-
 </script>
-
+    <script src = /js/app/item.js?ver=2></script>
 </th:block>
 </html>

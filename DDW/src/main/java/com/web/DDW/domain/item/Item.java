@@ -36,6 +36,9 @@ public class Item extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", length = 500, nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private String owner;
+
     @Column
     private String video;
 
