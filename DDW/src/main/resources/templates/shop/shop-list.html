@@ -3,10 +3,11 @@
 <th:block layout:fragment="content">
     <div class="container mt-5">
         <h1>상품 리스트</h1>
+        <br>
         <div class="mt-3">
             <a href="/shop/shop-write" class="btn btn-primary">상품등록</a>
         </div>
-        <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
             <tbody>
             <tr th:each="item : ${item}">
             <div class="col">

@@ -18,25 +18,16 @@ public class ItemDto {
     public static class Request{
 
         private Long id;
-
         private String name;
-
         private int price;
-
         @NotBlank(message = "제목을 입력해 주세요.")
         private String title;
-
         private String thumbnail;
-
         private String owner;
-
         @NotBlank(message = "내용을 입력해 주세요.")
         private String content;
-
         private String video;
-
         private String createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
-
         private String modifiedDate= LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
 
         public Item toEntity(){
@@ -53,6 +44,8 @@ public class ItemDto {
             return item;
         }
     }
+
+
     @Getter
     public static class Response implements Serializable {
         private final Long id;
