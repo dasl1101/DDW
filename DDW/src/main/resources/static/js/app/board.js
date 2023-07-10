@@ -1,4 +1,4 @@
-const main = {
+const board_main = {
     init : function () {
         const _this = this;
         $('#btn-save').on('click', function () {
@@ -40,12 +40,14 @@ const main = {
         };
 
         $.ajax({
+
             type: 'POST',
             url: '/api/v1/posts',
             dataType: 'JSON',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
+         console.log(":::::::::::::::::::::::::ajax");
             alert('글이 등록되었습니다.');
             window.location.href = '/board/list';
         }).fail(function (error) {
@@ -101,7 +103,6 @@ const main = {
             return false;
         }
     },
-
       // 댓글 저장
         commentSave : function () {
             const data = {
@@ -128,44 +129,6 @@ const main = {
             }
         },
 
-      /** 댓글 수정 */
-        commentUpdate : function (form) {
-            const data = {
-                id: form.querySelector('#id').value,
-                postsId: form.querySelector('#postsId').value,
-                comment: form.querySelector('#comment-content').value,
-                writerUserId: form.querySelector('#writerUserId').value,
-                sessionUserId: form.querySelector('#sessionUserId').value
-            }
-            console.log("commentWriterID : " + data.writerUserId);
-            console.log("sessionUserID : " + data.sessionUserId);
-            console.log("commentId : " + data.id);
-            console.log("postId : " + data.postsId);
-
-            if (data.writerUserId !== data.sessionUserId) {
-                alert("본인이 작성한 댓글만 수정 가능합니다.");
-                return false;
-            }
-
-            if (!data.comment || data.comment.trim() === "") {
-                alert("공백 또는 입력하지 않은 부분이 있습니다.");
-                return false;
-            }
-            const con_check = confirm("수정하시겠습니까?");
-            if (con_check === true) {
-                $.ajax({
-                    type: 'PUT',
-                    url: '/api/posts/' + data.postsId + '/comments/' + data.id,
-                    dataType: 'JSON',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data)
-                }).done(function () {
-                    window.location.reload();
-                }).fail(function (error) {
-                    alert(JSON.stringify(error));
-                });
-            }
-        },
       // 댓글 수정
         commentUpdate : function (form) {
             const data = {
@@ -265,5 +228,5 @@ const main = {
     }
 
 };
-
-main.init();
+//console.log('asdasdasdad');
+board_main.init();

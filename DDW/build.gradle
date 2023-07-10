@@ -42,9 +42,17 @@ dependencies {
 	// MariaDB
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
+	//gson
+	implementation 'com.google.code.gson:gson:2.9.0'
+
+	implementation 'commons-io:commons-io:2.11.0'    /* Apache commons-io */
+	implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4' /* Apache Commons FileUpload */
+
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
 }
 
 tasks.named('test') {

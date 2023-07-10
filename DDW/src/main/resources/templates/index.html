@@ -31,43 +31,22 @@
   <br>
   <br>
 </div>
-          <div class="row row-cols-1 row-cols-md-4 g-4">
-          <div class="col">
-            <div class="card h-100">
-              <img src="/img/test.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
-            </div>
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    <tbody>
+    <tr th:each="item : ${item}">
+      <div class="col">
+        <div class="card h-100">
+          <img th:src="${IMGPATH}+${item.thumbnail}" class="card-img-top" alt="...">
+          <div class="card-body">
+
+            <h5 class="card-title" th:text="${item.title}">Card title</h5>
+            <p class="card-text" >테스트 텍스트입니다.</p>
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <img src="/img/test.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a short card.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <img src="/img/test.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-              </div>
-            </div>
-          </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="/img/test.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                </div>
-              </div>
-            </div>
+        </div>
+      </div>
+    </tr>
+    </tbody>
+  </div>
 
         </div>
         </div>

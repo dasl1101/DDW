@@ -1,5 +1,6 @@
 package com.web.DDW;
 
+import com.web.DDW.domain.item.ItemPath;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,5 +15,9 @@ public class DdwApplication {
 		SpringApplication.run(DdwApplication.class, args);
 	}
 
+	@Bean(name = "uploadPath")
+	public String uploadPath() {
+		return "C:\\ddwProjectGit\\DDW\\src\\main\\resources\\static/img/";
+	}
 
 }

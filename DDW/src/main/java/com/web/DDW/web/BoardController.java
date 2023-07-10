@@ -2,6 +2,7 @@ package com.web.DDW.web;
 
 import com.web.DDW.config.auth.LoginUser;
 import com.web.DDW.domain.item.ItemPath;
+import com.web.DDW.service.ItemService;
 import com.web.DDW.service.PostsService;
 import com.web.DDW.web.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -20,14 +21,16 @@ import java.util.Map;
 public class BoardController {
 
     private final PostsService postsService;
+    private final ItemService itemService;
     private static final Integer POSTS_PER_PAGE = 10;
     private static final Integer PAGES_PER_BLOCK = 5;
 
     //대문
     @GetMapping("/")
-    public String index(Model model, @LoginUser UserDto.Response user ){
+    public String index(Model model, @LoginUser UserDto.Response user, @RequestParam(value = "page", defaultValue = "1") Integer page ){
         //이미지경로
         model.addAttribute("IMGPATH", ItemPath.IMGPATH.getPath());
+        model.addAttribute("item", itemService.findAllByOrderByIdDesc(page, POSTS_PER_PAGE));
         System.out.println(":::::::::::ItemPath.IMGPATH.getPath():"+ ItemPath.IMGPATH.getPath());
         if (user != null) {
             model.addAttribute("user", user);
