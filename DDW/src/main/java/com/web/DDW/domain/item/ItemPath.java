@@ -1,7 +1,7 @@
-package com.web.DDW.web.dto;
+package com.web.DDW.domain.item;
 
 public enum ItemPath {
-    IMGPATH("/img");
+    IMGPATH("/img/");
 
     private final String path;
 

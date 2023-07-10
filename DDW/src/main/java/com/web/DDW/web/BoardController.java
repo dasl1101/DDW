@@ -1,11 +1,9 @@
 package com.web.DDW.web;
 
 import com.web.DDW.config.auth.LoginUser;
+import com.web.DDW.domain.item.ItemPath;
 import com.web.DDW.service.PostsService;
-import com.web.DDW.web.dto.CommentDto;
-import com.web.DDW.web.dto.Paginator;
-import com.web.DDW.web.dto.PostsResponseDto;
-import com.web.DDW.web.dto.UserDto;
+import com.web.DDW.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +26,9 @@ public class BoardController {
     //대문
     @GetMapping("/")
     public String index(Model model, @LoginUser UserDto.Response user ){
-
+        //이미지경로
+        model.addAttribute("IMGPATH", ItemPath.IMGPATH.getPath());
+        System.out.println(":::::::::::ItemPath.IMGPATH.getPath():"+ ItemPath.IMGPATH.getPath());
         if (user != null) {
             model.addAttribute("user", user);
         }
