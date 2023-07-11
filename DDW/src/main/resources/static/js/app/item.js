@@ -4,19 +4,29 @@ const item_main = {
         //저장
         $('#btn-saveShop').on('click', function () {
             _this.saveShop();
-            console.log("::::::::::::::::ajax");
+
         });
 
-       },
+       //썸네일업로드
+        $('#btn-saveShop').on('click', function(){
+             _this.uploadFile();
+
+        });
+
+    },
 
        //저장
     saveShop : function () {
+        const fileValue = $("#thumbnail").val().split("\\");
+        const fileName = fileValue[fileValue.length-1]; // 파일명
+        console.log("::::::::::::::::ajax"+fileName);
             const data = {
                 title: $('#title').val(),
                 owner: $('#owner').val(),
                 content: $('#content').val(),
                 name: $('#name').val(),
-                price: $('#price').val()
+                price: $('#price').val(),
+                thumbnail: fileName
             };
 
         $.ajax({
@@ -27,7 +37,7 @@ const item_main = {
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-                console.log("::::::::::::::::ajax");
+
             alert('글이 등록되었습니다.');
             window.location.href = '/shop/shop-list';
         }).fail(function (error) {
@@ -35,6 +45,28 @@ const item_main = {
         });
     },
 
+
+        uploadFile : function () {
+            const imageInput = $("#thumbnail")[0];
+            if(imageInput.files.length === 0){
+                alert("썸네일을 선택해주세요");
+                return;
+              }
+            const formData = new FormData();
+            formData.append("file", imageInput.files[0]);
+            console.log("::::::::::::::::ajax" + imageInput.files[0]);
+            $.ajax({
+                url : '/image',
+                type : 'POST',
+                data : formData,
+                cache : false,
+                contentType : false,
+                enctype : 'multipart/form-data',
+                processData : false
+            }).done(function(data){
+                callback(data);
+            });
+        }
 
 
 };

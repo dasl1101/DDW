@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 @Service
 public class ImageService {
@@ -60,21 +61,22 @@ public class ImageService {
             return new ImageDto.Response(image);
         }
 
-        public String fileSave(String rootLocation, MultipartFile file) throws IOException {
-            File uploadDir = new File(rootLocation);
+    public String fileSave(String rootLocation, MultipartFile file) throws IOException {
+        File uploadDir = new File(rootLocation);
 
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();
-            }
-
-            // saveFileName 생성
-
-            String imageName = file.getOriginalFilename();
-            File saveFile = new File(rootLocation, imageName);
-            FileCopyUtils.copy(file.getBytes(), saveFile);
-
-            return imageName;
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
         }
+
+        // saveFileName 생성
+
+        UUID uuid = UUID.randomUUID();
+        String saveImageName = uuid.toString() + file.getOriginalFilename();
+        File saveFile = new File(rootLocation, saveImageName);
+        FileCopyUtils.copy(file.getBytes(), saveFile);
+
+        return saveImageName;
+    }
 
     }
 

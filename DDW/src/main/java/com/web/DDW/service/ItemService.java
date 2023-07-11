@@ -1,5 +1,6 @@
 package com.web.DDW.service;
 
+import com.web.DDW.domain.item.ImageRepository;
 import com.web.DDW.domain.item.Item;
 import com.web.DDW.domain.item.ItemRepository;
 
@@ -19,10 +20,14 @@ import java.util.stream.Collectors;
 @Service
 public class ItemService {
     private final ItemRepository itemRepository;
-
+    private final ImageRepository imageRepository;
     //글작성
     @Transactional
     public Long save(ItemDto.Request dto){
+
+        String thumbnail_ = imageRepository.findByImagePath(dto.getThumbnail());
+        thumbnail_ = thumbnail_.replaceAll("C:/ddwProjectGit/DDW/src/main/resources/static/img/","");
+        dto.setThumbnail(thumbnail_);
         Item item = dto.toEntity();
         itemRepository.save(item);
 
