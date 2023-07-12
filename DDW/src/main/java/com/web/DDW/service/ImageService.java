@@ -2,13 +2,7 @@ package com.web.DDW.service;
 
 import com.web.DDW.domain.item.Image;
 import com.web.DDW.domain.item.ImageRepository;
-import com.web.DDW.domain.item.Item;
-import com.web.DDW.domain.item.ItemRepository;
-import com.web.DDW.domain.posts.Posts;
 import com.web.DDW.web.dto.ImageDto;
-import com.web.DDW.web.dto.ItemDto;
-import com.web.DDW.web.dto.PostsResponseDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
