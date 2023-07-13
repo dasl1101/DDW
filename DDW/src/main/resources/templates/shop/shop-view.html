@@ -9,32 +9,38 @@
         color: #2f3135;
         text-decoration: none;
     }
-    
+
     </style>
     <div class="container mt-5">
-        <h2>상품 상세</h2>
+        <h2 class="py-5 text-center" th:value="${item.title}">제목</h2>
+
         <form>
-            <div class="form-group">
-                <label>제목</label>
-                <input type="text" class="form-control" id="title" th:value="${item.title}" readonly>
-            </div>
+            <div class="row g-5">
+                <input type="hidden" class="form-control" id="title" th:value="${item.title}">
+
+                <section class="col-md-3 col-lg-4 order-md-last">
+                    <aside>
             <div class="form-group">
                 <label>닉네임</label>
-                <input type="text" class="form-control" id="owner" th:value="${user.nickName}">
+                <span id="owner" th:text="${user.nickName}"></span>
             </div>
             <div class="form-group">
                 <label>상품명</label>
-                <input type="text" class="form-control" id="name" th:value="${item.name}"  readonly>
+                <span id="name" th:text="${item.name}"></span>
             </div>
             <div class="form-group">
                 <label>가격</label>
-                <input type="text" class="form-control" id="price" th:value="${item.price}" readonly>
+                <span id="price" th:text="${item.price}" ></span>
             </div>
+                  </aside>
+                </section>
 
+                <section id="article-content" class="col-md-9 col-lg-8">
             <div class="form-group">
                 <span class="text-dark mb-0"  name="content"   th:utext="${item.content}" ></span>
             </div>
-
+                </section>
+            </div>
         </form>
 
         <!-- If user exists-->
