@@ -1,6 +1,7 @@
 package com.web.DDW.domain.item;
 
 import com.web.DDW.domain.BaseTimeEntity;
+import com.web.DDW.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,8 +40,9 @@ public class Item extends BaseTimeEntity {
     @Column(nullable = false)
     private String owner;
 
-    @Column
-    private String video;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "created_date")
     @CreatedDate

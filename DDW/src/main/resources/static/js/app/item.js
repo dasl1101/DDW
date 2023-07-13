@@ -7,11 +7,6 @@ const item_main = {
 
         });
 
-       //썸네일업로드
-        $('#btn-saveShop').on('click', function(){
-             _this.uploadFile();
-
-        });
 
     },
 
@@ -46,27 +41,6 @@ const item_main = {
     },
 
 
-        uploadFile : function () {
-            const imageInput = $("#thumbnail")[0];
-            if(imageInput.files.length === 0){
-                alert("썸네일을 선택해주세요");
-                return;
-              }
-            const formData = new FormData();
-            formData.append("file", imageInput.files[0]);
-            console.log("::::::::::::::::ajax" + imageInput.files[0]);
-            $.ajax({
-                url : '/image',
-                type : 'POST',
-                data : formData,
-                cache : false,
-                contentType : false,
-                enctype : 'multipart/form-data',
-                processData : false
-            }).done(function(data){
-                callback(data);
-            });
-        }
 
 
 };

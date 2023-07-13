@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate=~{layout/default-layout}>
+<th:block layout:fragment="content">
+    <style>
+    .form-control:disabled, .form-control[readonly] {
+        background-color: #ffffff;
+    }
+    a {
+        color: #2f3135;
+        text-decoration: none;
+    }
+    
+    </style>
+    <div class="container mt-5">
+        <h2>상품 상세</h2>
+        <form>
+            <div class="form-group">
+                <label>제목</label>
+                <input type="text" class="form-control" id="title" th:value="${item.title}" readonly>
+            </div>
+            <div class="form-group">
+                <label>닉네임</label>
+                <input type="text" class="form-control" id="owner" th:value="${user.nickName}">
+            </div>
+            <div class="form-group">
+                <label>상품명</label>
+                <input type="text" class="form-control" id="name" th:value="${item.name}"  readonly>
+            </div>
+            <div class="form-group">
+                <label>가격</label>
+                <input type="text" class="form-control" id="price" th:value="${item.price}" readonly>
+            </div>
+
+            <div class="form-group">
+                <span class="text-dark mb-0"  name="content"   th:utext="${item.content}" ></span>
+            </div>
+
+        </form>
+
+        <!-- If user exists-->
+        <div th:if="${user}">
+            <div th:if="${item.owner}">
+                <a th:href="@{/shop/shop-list}" role="button" class="btn btn-info bi bi-arrow-return-left" style="float:right;">목록</a>
+                <a th:href="@{/shop/shop-update/{id}(id=${item.id})}" role="button"
+                   class="btn btn-primary bi bi-pencil-square" style="float:right; margin-right: 10px;">수정</a>
+                <button type="button" class="btn btn-danger" id="btn-delete" style="float:right; margin-right: 10px;">삭제</button>
+            </div>
+        </div>
+        <div th:unless="${user}">
+            <a th:href="@{/shop/shop-list}" role="button" class="bi bi-arrow-return-left" >목록</a>
+            <br>
+            <br>
+            <div>
+    </div>
+</th:block>

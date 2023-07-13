@@ -17,10 +17,13 @@
             <tr th:each="item : ${item}">
                 <div class="col">
                     <div class="card h-100">
+                        <a th:href="@{/shop/shop-view/{id}(id=${item.id})}">
                         <img th:src="${IMGPATH}+${item.thumbnail}" class="card-img-top" >
+                        </a>
+
                         <div class="card-body">
 
-                            <h5 class="card-title" th:text="${item.title}">Card title</h5>
+                            <h5 class="card-title"> <a th:href="@{/shop/shop-view/{id}(id=${item.id})}" th:text="${item.title}"/></h5>
                             <p class="card-text" >테스트 텍스트입니다.</p>
                         </div>
                     </div>

@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label for="thumbnail">썸네일</label>
-                <input type="file" class="form-control" id="thumbnail">
+                <input type="file" class="form-control" id="thumbnail" onchange="uploadFile(this)" accept="image/**">
             </div>
             <input type="hidden" class="form-control" id="owner" th:value="${user.nickName}">
             <div class="form-group">
@@ -69,6 +69,31 @@
 			});
 		}
 	</script>
+
+    <script>
+        //썸네일저장
+        const uploadFile = function () {
+            const imageInput = $("#thumbnail")[0];
+            if(imageInput.files.length === 0){
+                alert("썸네일을 선택해주세요");
+                return;
+              }
+            const formData = new FormData();
+            formData.append("file", imageInput.files[0]);
+            $.ajax({
+                url : '/image',
+                type : 'POST',
+                data : formData,
+                cache : false,
+                contentType : false,
+                enctype : 'multipart/form-data',
+                processData : false
+            }).done(function(data){
+                 console.log("success")
+            });
+        }
+
+    </script>
     <script src = /js/app/item.js?ver=8></script>
 </th:block>
 </html>
