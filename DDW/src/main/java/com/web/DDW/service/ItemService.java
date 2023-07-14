@@ -1,8 +1,11 @@
 package com.web.DDW.service;
 
+import com.web.DDW.domain.item.ImageRepository;
 import com.web.DDW.domain.item.Item;
 import com.web.DDW.domain.item.ItemRepository;
 
+import com.web.DDW.domain.user.User;
+import com.web.DDW.domain.user.UserRepository;
 import com.web.DDW.web.dto.ItemDto;
 import com.web.DDW.web.dto.PostsListResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +22,17 @@ import java.util.stream.Collectors;
 @Service
 public class ItemService {
     private final ItemRepository itemRepository;
-
+    private final ImageRepository imageRepository;
+    private final UserRepository userRepository;
     //글작성
     @Transactional
-    public Long save(ItemDto.Request dto){
+    public Long save(ItemDto.Request dto, String nickName){
+
+        String thumbnail_ = imageRepository.findByImagePath(dto.getThumbnail());
+        thumbnail_ = thumbnail_.replaceAll("C:/ddwProjectGit/DDW/src/main/resources/static/img/","");
+        dto.setThumbnail(thumbnail_);
+        User user = userRepository.findByNickName(nickName);
+        dto.setUser(user);
         Item item = dto.toEntity();
         itemRepository.save(item);
 
@@ -54,6 +64,14 @@ public class ItemService {
 
     public Long count() { //게시판 전체 글 수를 반환
         return itemRepository.count();
+    }
+
+
+    //게시글 단건조회
+    public ItemDto.Response findById(Long id){
+        Item item = itemRepository.findById(id).orElseThrow(()
+        ->new IllegalArgumentException("해당 게시글이 없습니다. id = "+id));
+        return new ItemDto.Response(item);
     }
 
 }

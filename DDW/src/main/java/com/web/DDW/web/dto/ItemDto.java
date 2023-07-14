@@ -1,6 +1,7 @@
 package com.web.DDW.web.dto;
 
 import com.web.DDW.domain.item.Item;
+import com.web.DDW.domain.user.User;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -26,7 +27,7 @@ public class ItemDto {
         private String owner;
         @NotBlank(message = "내용을 입력해 주세요.")
         private String content;
-        private String video;
+        private User user;
         private String createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
         private String modifiedDate= LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
 
@@ -39,7 +40,7 @@ public class ItemDto {
                     .thumbnail(thumbnail)
                     .owner(owner)
                     .content(content)
-                    .video(video)
+                    .user(user)
                     .build();
             return item;
         }
@@ -49,21 +50,13 @@ public class ItemDto {
     @Getter
     public static class Response implements Serializable {
         private final Long id;
-
         private final String name;
-
         private final int price;
-
         private final String title;
-
         private final String thumbnail;
-
         private final String owner;
-
         private final String content;
-
-        private final String video;
-
+        private final Long userId;
         private final String modifiedDate;
 
 
@@ -75,7 +68,7 @@ public class ItemDto {
             this.thumbnail = item.getThumbnail();
             this.owner = item.getOwner();
             this.content = item.getContent();
-            this.video = item.getVideo();
+            this.userId = item.getUser().getId();
             this.modifiedDate = item.getModifiedDate();
         }
     }

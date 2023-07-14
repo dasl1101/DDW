@@ -17,8 +17,8 @@ public class ItemApiController {
 
     //글작성
     @PostMapping("/api/v1/item")
-    public Long save(@RequestBody ItemDto.Request dto) {
-        return itemService.save(dto);
+    public Long save(@RequestBody ItemDto.Request dto, @LoginUser UserDto.Response user) {
+        return itemService.save(dto, user.getNickName());
     }
 
 

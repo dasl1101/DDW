@@ -22,20 +22,18 @@ public class ImageController {
     private final ResourceLoader resourceLoader;
 
     @PostMapping("/image")
-    public ResponseEntity<?> imageUpload(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> imageUpload(@RequestParam(value ="file", required=false) MultipartFile file) {
         try {
-
-
              Image image = imageService.store(file);
             System.out.println("image get id = "+ image.getId() + image.getImageName() + image.getImagePath());
-             return ResponseEntity.ok().body(ItemPath.IMGPATH.getPath() + image.getId());
+             return ResponseEntity.ok().body("/image/" + image.getId());
         } catch(Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping("/img/{id}")
+    @GetMapping("/image/{id}")
     public ResponseEntity<?> serveFile(@PathVariable Long id){
         try {
             ImageDto.Response dto = imageService.findById(id);
