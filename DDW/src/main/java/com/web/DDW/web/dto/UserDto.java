@@ -79,5 +79,24 @@ public class UserDto {
 
     }
 
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class deleteUser {
+        private Long id;
+        private String password;
+
+        public User toEntity(){
+            User user = User.builder()
+                    .id(id)
+                    .password(password)
+                    .build();
+            return user;
+        }
+
+    }
+
+
 
 }

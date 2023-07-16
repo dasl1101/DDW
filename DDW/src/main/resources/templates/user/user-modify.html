@@ -12,7 +12,7 @@
     }
   </style>
 
-  <form>
+  <form >
     <div class="container">
       <h1>회원정보 수정</h1>
       <div class="form-group">
@@ -36,8 +36,34 @@
           <input type="text" id="email" th:value="${user.email}" class="form-control" readonly/>
         </div>
         <button class="btn btn-primary bi bi-check-lg" id="btn-user-modify" >수정</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cansel_user">탈퇴</button>
         <a href="/board/list" role="button" class="btn btn-info bi bi-arrow-return-left"> 목록</a>
       </div>
     </div>
   </form>
+
+<!--modal-->
+
+  <div class="modal fade" id="cansel_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">회원 탈퇴</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          정말로 탈퇴하시겠습니까?
+        </div>
+        <div class="modal-footer">
+          <button  type="button" id="btn-cancel-user" class="btn btn-primary" style="float: right;">탈퇴</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="float: right;">취소</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 </th:block>

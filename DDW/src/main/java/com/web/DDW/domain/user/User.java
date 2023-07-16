@@ -42,6 +42,9 @@ public class User extends BaseTimeEntity {
         this.password = password;
     }
 
+
+
+
     //소셜로그인시 이미 등록된 회원이라면 수정날짜만 업데이트/기존데이터 보존
     public User updateModifiedDate() {
         this.onPreUpdate();
