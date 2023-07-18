@@ -1,6 +1,8 @@
 package com.web.DDW.service;
 
 
+import com.web.DDW.domain.posts.Posts;
+import com.web.DDW.domain.posts.PostsRepository;
 import com.web.DDW.domain.user.User;
 import com.web.DDW.domain.user.UserRepository;
 import com.web.DDW.web.dto.UserDto;
@@ -20,6 +22,7 @@ import java.util.Map;
 public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
+    private final PostsRepository postsRepository;
 
     //회원가입
     @Transactional
@@ -55,5 +58,21 @@ public class UserService {
         user.modify(dto.getNickName(), encPassword);
     }
 
+    //회원 탈퇴 및 게시글 삭제
+    @Transactional
+    public void delete(Long id) {
+        //작성한 게시글 있는지 확인 후 삭제
+        int postCount = postsRepository.countPostsByUserId(id);
+        if(postCount >0){
+            postsRepository.deletePostsByUserId(id);
+        }
+
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("해당 회원이 존재하지 않습니다. id=" + id));
+        userRepository.delete(user);
+        //JpaRepository에서 delete 메소드를 지원하고 있음
+        //엔티티를 파라미터로 삭제할 수도 있고 deleteById 메소드를 이용하면 id로 삭제도 가능
+
+    }
 
 }

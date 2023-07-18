@@ -31,6 +31,11 @@ const board_main = {
             _this.userModify();
         });
 
+        //회원 탈퇴
+        $('#btn-cancel-user').on('click', function () {
+            _this.cancel_user();
+        });
+
     },
     save : function () {
         const data = {
@@ -225,7 +230,25 @@ const board_main = {
         } else {
             return false;
         }
-    }
+    },
+    //회원탈퇴
+     cancel_user : function () {
+        const id = $('#del_id').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/cansel_user/'+id,
+                dataType: 'JSON',
+                contentType: 'application/json; charset=utf-8'
+
+            }).done(function () {
+                alert("탈퇴 완료되었습니다.");
+                window.location.href = '/logout';
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+
+    },
 
 };
 //console.log('asdasdasdad');

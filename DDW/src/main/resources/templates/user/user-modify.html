@@ -53,9 +53,12 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <form>
+          <input type="hidden" id="del_id" th:value="${user.id}"/>
         <div class="modal-body">
           정말로 탈퇴하시겠습니까?
         </div>
+        </form>
         <div class="modal-footer">
           <button  type="button" id="btn-cancel-user" class="btn btn-primary" style="float: right;">탈퇴</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal" style="float: right;">취소</button>
@@ -64,6 +67,6 @@
     </div>
   </div>
 
-
+  <script src = /js/app/board.js?ver=10></script>
 
 </th:block>

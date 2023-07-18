@@ -40,5 +40,10 @@ public class UserApiController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
+    @PostMapping("/cansel_user/{id}")
+    public ResponseEntity cansel_user(@PathVariable Long id) {
+        userService.delete(id);
+        return ResponseEntity.ok(id);
+    }
 
 }
