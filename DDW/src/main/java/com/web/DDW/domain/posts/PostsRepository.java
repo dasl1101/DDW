@@ -17,5 +17,10 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     @Query("update Posts p set p.view = p.view + 1 where p.id = :id")
     int updateView(@Param("id")Long id); //@Param을 안써서 오류남...
 
+    @Query(value = "SELECT COUNT(*) FROM posts WHERE user_id = :userId", nativeQuery = true)
+    int countPostsByUserId(@Param("userId") Long id);
 
+    @Modifying
+    @Query(value = "DELETE FROM Posts WHERE user_id = :userId" , nativeQuery = true)
+    void deletePostsByUserId(@Param("userId") Long id);
 }

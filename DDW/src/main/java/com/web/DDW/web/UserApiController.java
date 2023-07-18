@@ -1,5 +1,8 @@
 package com.web.DDW.web;
 
+import com.web.DDW.config.auth.LoginUser;
+import com.web.DDW.domain.user.User;
+import com.web.DDW.domain.user.UserRepository;
 import com.web.DDW.service.UserService;
 import com.web.DDW.web.dto.UserDto;
 import lombok.RequiredArgsConstructor;
@@ -9,9 +12,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -20,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserApiController {
 
     private final UserService userService;
-
+    private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
 
     @PutMapping("/api/v1/user")
@@ -35,4 +39,11 @@ public class UserApiController {
 
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
+
+    @PostMapping("/cansel_user/{id}")
+    public ResponseEntity cansel_user(@PathVariable Long id) {
+        userService.delete(id);
+        return ResponseEntity.ok(id);
+    }
+
 }
