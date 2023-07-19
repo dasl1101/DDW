@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--로그인 페이지-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate=~{layout/default-layout}>
+<th:block layout:fragment="content">
+</div>
+  </div>
+  </div>
+  <style>
+    #container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+  </style>
+  <div id="loginBox">
+  <!-- Heading -->
+  <h1>SIGN IN</h1>
+
+  <!-- Links -->
+  <ul class="links" style="display: flex;justify-content: center;align-items: center;">
+    <li>
+      <a href="#" id="signin">SIGN IN</a>
+    </li>
+    <li>
+      <a href="#" id="signup">SIGN UP</a>
+    </li>
+    <li>
+      <a href="#" id="reset">RESET</a>
+    </li>
+  </ul>
+
+  <!-- Form -->
+  <form  action="" method="post">
+    <!-- email input -->
+    <div class="first-input input__block first-input__block">
+      <input type="email" placeholder="Email" class="input" id="email"   />
+    </div>
+    <!-- password input -->
+    <div class="input__block">
+      <input type="password" placeholder="Password" class="input" id="password"    />
+    </div>
+    <!-- repeat password input -->
+    <div class="input__block">
+      <input type="password" placeholder="Repeat password" class="input repeat__password" id="repeat__password"    />
+    </div>
+    <!-- sign in button -->
+    <button class="signin__btn">
+      Sign in
+    </button>
+  </form>
+  <!-- separator -->
+  <div class="separator">
+    <p>OR</p>
+  </div>
+  <!-- google button -->
+  <button class="google__btn">
+    <i class="fa fa-google"></i>
+    Sign in with Google
+  </button>
+  </div>
+</div>
+  <script src = /js/login.js></script>
+  <link rel="stylesheet" href="/css/login.css">
+</th:block>
