@@ -22,6 +22,9 @@ public class ItemApiController {
         return itemService.save(dto, user.getNickName());
     }
 
+
+
+
     //글수정
     @PutMapping("/api/v1/item/{id}")
     public ResponseEntity update(@PathVariable Long id,
