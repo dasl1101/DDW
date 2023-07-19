@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate=~{layout/default-layout}>
+<th:block layout:fragment="content">
+  <div class="container mt-5">
+    <h2>상품 설명 수정</h2>
+    <br>
+    <br>
+    <form>
+      <div class="form-group">
+        <input type="hidden" class="form-control" id="itemId" th:value="${item.id}">
+        <label for="itemTitle">제목</label>
+        <input type="text" class="form-control" id="itemTitle" th:value="${item.title}">
+      </div>
+      <div class="form-group">
+        <label for="itemName">상품명</label>
+        <input type="text" class="form-control" id="itemName"  th:value="${item.name}">
+      </div>
+      <div class="form-group">
+        <label for="itemPrice">가격</label>
+        <input type="text" class="form-control" id="itemPrice" th:value="${item.price}">
+      </div>
+      <div class="form-group">
+        <label for="itemThumbnail">썸네일</label>
+        <input type="file" class="form-control" id="itemThumbnail" onchange="uploadFile(this)" accept="image/**">
+      </div>
+      <input type="text" class="form-control" id="tt" th:value="${item.thumbnail}">
+      <input type="hidden" class="form-control" id="itemOwner" th:value="${user.nickName}">
+      <div class="form-group">
+        <textarea id="itemContent" rows="5" name="content" th:utext="${item.content}" style="width:100%; height:250px;"></textarea>
+      </div>
+
+    </form>
+    <a href="/shop/shop-list" role="button" class="btn btn-secondary">취소</a>
+    <button type="button" class="btn btn-primary" id="btn-modifyShop">수정</button>
+  </div>
+  <script>
+		$(document).ready(function() {
+			$('#itemContent').summernote({
+				height : 300,
+				minHeight : null,
+				maxHeight : null,
+				focus : true,
+				callbacks : {
+					onImageUpload : function(files, editor, welEditable) {
+					console.log("dfsdfsdf"+files.length);
+						for (var i = 0; i < files.length; i++) {
+
+							sendFile(files[i], this);
+						}
+					}
+				}
+			});
+		});
+
+		function sendFile(file, el) {
+		    console.log(":::::::에이젝스"+ file );
+			var form_data = new FormData();
+			form_data.append('file', file);
+			$.ajax({
+				data : form_data,
+				type : "POST",
+				url : '/image',
+				cache : false,
+				contentType : false,
+				enctype : 'multipart/form-data',
+				processData : false,
+				success : function(url) {
+					$(el).summernote('insertImage', url, function($image) {
+					console.log(":::::::::url"+url);
+						$image.css('width', "100%");
+					});
+				}
+			});
+		}
+	</script>
+
+  <script>
+        //썸네일저장
+
+        const uploadFile = function () {
+            const imageInput = $("#itemThumbnail")[0];
+            const formData = new FormData();
+            formData.append("file", imageInput.files[0]);
+            $.ajax({
+                url : '/image',
+                type : 'POST',
+                data : formData,
+                cache : false,
+                contentType : false,
+                enctype : 'multipart/form-data',
+                processData : false
+            }).done(function(data){
+                 console.log("success")
+            });
+        }
+
+    </script>
+  <script src = /js/app/item.js?ver=14></script>
+</th:block>
+</html>

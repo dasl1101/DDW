@@ -52,4 +52,13 @@ public class Item extends BaseTimeEntity {
     @LastModifiedDate
     private String modifiedDate;
 
+
+    //제목 내용 수정
+    public void update(String title, String name, int price, String content, String thumbnail) {
+        this.title = title;
+        this.name = name;
+        this.price = price;
+        this.thumbnail = thumbnail;
+        this.content = content;
+    }
 }

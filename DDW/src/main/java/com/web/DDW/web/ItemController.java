@@ -5,6 +5,7 @@ import com.web.DDW.domain.item.ItemPath;
 import com.web.DDW.service.ItemService;
 import com.web.DDW.web.dto.ItemDto;
 import com.web.DDW.web.dto.Paginator;
+import com.web.DDW.web.dto.PostsResponseDto;
 import com.web.DDW.web.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -78,6 +79,17 @@ public class ItemController {
         return "/shop/shop-view";
     }
 
+    //게시글수정
+    @GetMapping("/shop/shop-update/{id}")
+    public String shopUpdate(@PathVariable Long id, Model model, @LoginUser UserDto.Response user) {
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
+        ItemDto.Response dto = itemService.findById(id);
+        model.addAttribute("item", dto);
+
+        return "shop/shop-update";
+    }
 
 
 }

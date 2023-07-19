@@ -7,6 +7,10 @@ const item_main = {
 
         });
 
+        $('#btn-modifyShop').on('click', function () {
+            _this.updateShop();
+        });
+
 
     },
 
@@ -41,6 +45,41 @@ const item_main = {
     },
 
 
+        //수정
+        updateShop : function () {
+            const fileValue = $("#itemThumbnail").val().split("\\");
+            const fileName = fileValue[fileValue.length-1]; // 파일명
+                const data = {
+                    title: $('#itemTitle').val(),
+                    owner: $('#itemOwner').val(),
+                    content: $('#itemContent').val(),
+                    name: $('#itemName').val(),
+                    price: $('#itemPrice').val(),
+                    thumbnail: fileName
+                };
+        const id = $('#itemId').val();
+        const con_check = confirm("수정하시겠습니까?");
+        if (con_check === true) {
+            if (!data.title || data.title.trim() === "" || !data.content || data.content.trim() === ""
+                || !data.name || data.name.trim() === "" || !data.price || data.price.trim() === "") {
+                            alert("상품 정보를 모두 입력해 주세요.");
+                            return false;
+            } else {
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/v1/item/'+id,
+                    dataType: 'json',
+                    contentType:'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                 }).done(function() {
+                    alert('글이 수정되었습니다.');
+                    window.location.href = '/shop/shop-list';
+                 }).fail(function (error) {
+                     alert(JSON.stringify(error));
+                  });
+            }
+        }
+    }
 
 
 };
