@@ -39,6 +39,11 @@ public class UserController {
         binder.addValidators(NickNameValidator);
         binder.addValidators(NameValidator);
     }
+    @GetMapping("/user/loginPage")
+    public String loginPage(){
+        return "/user/loginPage";
+    }
+
     //로그인
     @GetMapping("/auth/login")
     public String login(@RequestParam(value = "error", required = false)String error,

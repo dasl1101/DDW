@@ -4,10 +4,12 @@ import com.web.DDW.domain.item.ImageRepository;
 import com.web.DDW.domain.item.Item;
 import com.web.DDW.domain.item.ItemRepository;
 
+import com.web.DDW.domain.posts.Posts;
 import com.web.DDW.domain.user.User;
 import com.web.DDW.domain.user.UserRepository;
 import com.web.DDW.web.dto.ItemDto;
 import com.web.DDW.web.dto.PostsListResponseDto;
+import com.web.DDW.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -72,6 +74,40 @@ public class ItemService {
         Item item = itemRepository.findById(id).orElseThrow(()
         ->new IllegalArgumentException("해당 게시글이 없습니다. id = "+id));
         return new ItemDto.Response(item);
+    }
+
+    //게시글 수정
+    @Transactional
+    public void update(Long id, ItemDto.Request dto) {
+        Item item = itemRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id ));
+        //orElseThrow : 값이 없을 때 에러문구 표시
+        if(dto.getThumbnail() != ""){
+            System.out.println("System.out.println(dto.getThumbnail());값있음" + dto.getThumbnail());
+            String thumbnail_ = imageRepository.findByImagePath(dto.getThumbnail());
+
+            thumbnail_ = thumbnail_.replaceAll("C:/ddwProjectGit/DDW/src/main/resources/static/img/", "");
+            dto.setThumbnail(thumbnail_);
+
+        }else{
+            System.out.println("System.out.println(dto.getThumbnail());값없음" + dto.getThumbnail());
+            dto.setThumbnail(item.getThumbnail());
+
+        }
+
+        item.update(dto.getTitle(), dto.getTitle(), dto.getPrice(),dto.getContent(),dto.getThumbnail());
+
+    }
+
+    //게시글 삭제
+    @Transactional
+    public void delete(Long id) {
+        Item item = itemRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id=" + id));
+        itemRepository.delete(item);
+        //JpaRepository에서 delete 메소드를 지원하고 있음
+        //엔티티를 파라미터로 삭제할 수도 있고 deleteById 메소드를 이용하면 id로 삭제도 가능
+
     }
 
 }

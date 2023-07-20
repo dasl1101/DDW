@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate=~{layout/default-layout}>
 <th:block th:fragment="list">
 <br />
 
@@ -16,7 +18,7 @@
                             <!-- 수정버튼 -->
                             <a class="badge"role="button" data-bs-toggle="collapse" aria-expanded="false" th:attr="data-bs-target='.multi-collapse-'+${comments.id}">수정</a>
                             <!-- 삭제버튼 -->
-                            <a type="button"th:onclick="main.commentDelete([[${comments.postsId}]], [[${comments.id}]]);" class="badge">삭제</a>
+                            <a type="button"th:onclick="board_main.commentDelete([[${comments.postsId}]], [[${comments.id}]]);" class="badge">삭제</a>
                         </div>
                     </div>
                         <!-- 조회 -->

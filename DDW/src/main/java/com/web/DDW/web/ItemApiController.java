@@ -4,6 +4,7 @@ import com.web.DDW.config.auth.LoginUser;
 import com.web.DDW.service.ItemService;
 import com.web.DDW.web.dto.ItemDto;
 import com.web.DDW.web.dto.PostsSaveRequestDto;
+import com.web.DDW.web.dto.PostsUpdateRequestDto;
 import com.web.DDW.web.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,5 +23,18 @@ public class ItemApiController {
     }
 
 
+    //글수정
+    @PutMapping("/api/v1/item/{id}")
+    public ResponseEntity update(@PathVariable Long id,
+                                 @RequestBody ItemDto.Request dto) {
+        itemService.update(id, dto);
+        return ResponseEntity.ok(id);
+    }
 
+    //글삭제
+    @DeleteMapping("/api/v1/item/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        itemService.delete(id);
+        return ResponseEntity.ok(id);
+    }
 }

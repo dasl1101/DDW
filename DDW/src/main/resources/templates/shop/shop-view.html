@@ -16,7 +16,7 @@
 
         <form>
             <div class="row g-5">
-                <input type="hidden" class="form-control" id="title" th:value="${item.title}">
+                <input type="hidden" class="form-control" id="item_id" th:value="${item.id}">
 
                 <section class="col-md-3 col-lg-4 order-md-last">
                     <aside>
@@ -49,13 +49,16 @@
                 <a th:href="@{/shop/shop-list}" role="button" class="btn btn-info bi bi-arrow-return-left" style="float:right;">목록</a>
                 <a th:href="@{/shop/shop-update/{id}(id=${item.id})}" role="button"
                    class="btn btn-primary bi bi-pencil-square" style="float:right; margin-right: 10px;">수정</a>
-                <button type="button" class="btn btn-danger" id="btn-delete" style="float:right; margin-right: 10px;">삭제</button>
+                <button type="button" class="btn btn-danger" id="btn-deleteShop" style="float:right; margin-right: 10px;">삭제</button>
             </div>
         </div>
         <div th:unless="${user}">
             <a th:href="@{/shop/shop-list}" role="button" class="bi bi-arrow-return-left" >목록</a>
             <br>
             <br>
-            <div>
+
+        </div>
     </div>
+    <script src = /js/app/item.js?ver=17></script>
 </th:block>
+</html>
