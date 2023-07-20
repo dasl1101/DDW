@@ -99,4 +99,15 @@ public class ItemService {
 
     }
 
+    //게시글 삭제
+    @Transactional
+    public void delete(Long id) {
+        Item item = itemRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id=" + id));
+        itemRepository.delete(item);
+        //JpaRepository에서 delete 메소드를 지원하고 있음
+        //엔티티를 파라미터로 삭제할 수도 있고 deleteById 메소드를 이용하면 id로 삭제도 가능
+
+    }
+
 }

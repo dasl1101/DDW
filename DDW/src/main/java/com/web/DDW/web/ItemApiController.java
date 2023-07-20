@@ -23,8 +23,6 @@ public class ItemApiController {
     }
 
 
-
-
     //글수정
     @PutMapping("/api/v1/item/{id}")
     public ResponseEntity update(@PathVariable Long id,
@@ -33,5 +31,10 @@ public class ItemApiController {
         return ResponseEntity.ok(id);
     }
 
-
+    //글삭제
+    @DeleteMapping("/api/v1/item/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        itemService.delete(id);
+        return ResponseEntity.ok(id);
+    }
 }

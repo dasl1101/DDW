@@ -11,6 +11,11 @@ const item_main = {
             _this.updateShop();
         });
 
+        $('#btn-deleteShop').on('click', function () {
+            _this.deleteShop();
+            console.log("$('#item_id').val() : " + $('#item_id').val());
+        });
+
 
     },
 
@@ -79,8 +84,29 @@ const item_main = {
                   });
             }
         }
-    }
+    },
 
+    deleteShop : function () {
+            const id = $('#item_id').val();
+            const con_check = confirm("정말 삭제하시겠습니까?");
+
+            if(con_check == true) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/v1/item/'+id,
+                    dataType: 'JSON',
+                    contentType: 'application/json; charset=utf-8'
+
+                }).done(function () {
+                    alert("삭제되었습니다.");
+                    window.location.href = '/shop/shop-list';
+                }).fail(function (error) {
+                    alert(JSON.stringify(error));
+                });
+            } else {
+                return false;
+            }
+        }
 
 };
 
