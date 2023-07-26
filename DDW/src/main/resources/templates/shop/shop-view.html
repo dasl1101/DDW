@@ -44,15 +44,15 @@
         </form>
 
         <!-- If user exists-->
-        <div th:if="${user}">
+
             <div th:if="${item.owner}">
                 <a th:href="@{/shop/shop-list}" role="button" class="btn btn-info bi bi-arrow-return-left" style="float:right;">목록</a>
                 <a th:href="@{/shop/shop-update/{id}(id=${item.id})}" role="button"
                    class="btn btn-primary bi bi-pencil-square" style="float:right; margin-right: 10px;">수정</a>
                 <button type="button" class="btn btn-danger" id="btn-deleteShop" style="float:right; margin-right: 10px;">삭제</button>
             </div>
-        </div>
-        <div th:unless="${user}">
+
+        <div th:unless="${item.owner}">
             <a th:href="@{/shop/shop-list}" role="button" class="bi bi-arrow-return-left" >목록</a>
             <br>
             <br>
