@@ -74,6 +74,7 @@ class PostApiControllerTest {
 
 
     @Test
+    @WithMockUser(roles = "USER")
     public void Posts_modify() throws Exception {
         //given
         Posts savedPosts = postsRepository.save(Posts.builder()
@@ -82,8 +83,8 @@ class PostApiControllerTest {
                 .owner("owner")
                 .build());
         Long updateId = savedPosts.getId();
-        String expectedTitle = "title";
-        String expectedContent ="content";
+        String expectedTitle = "title2";
+        String expectedContent ="content2";
 
         PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder()
                 .title(expectedTitle)
@@ -98,7 +99,7 @@ class PostApiControllerTest {
         mvc.perform(put(url)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(new ObjectMapper().writeValueAsString(requestDto)))
-                .andExpect(redirectedUrl("http://localhost:" + port + "/auth/login"));
+                .andExpect(status().isOk());
 
         //then
         List<Posts> all = postsRepository.findAll();
