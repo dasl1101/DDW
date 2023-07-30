@@ -49,7 +49,7 @@ public class ItemController {
         //썸네일 파일명을 db에 넣기 위한 코드
         model.addAttribute("item", itemService.findAllByOrderByIdDesc(page, POSTS_PER_PAGE));
 
-        return "/shop/shop-list";
+        return "shop/shop-list";
 
     }
 
@@ -60,7 +60,7 @@ public class ItemController {
         if (user != null) {
             model.addAttribute("user", user);
         }
-        return "/shop/shop-write";
+        return "shop/shop-write";
     }
 
     //게시글상세
@@ -76,7 +76,7 @@ public class ItemController {
                 model.addAttribute("owner", true);
             }
         }
-        return "/shop/shop-view";
+        return "shop/shop-view";
     }
 
     //게시글수정
