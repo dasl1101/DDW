@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
-                .ignoring().antMatchers( "/css/**", "/js/**", "/img/**","/image");
+                .ignoring().antMatchers( "/css/**", "/js/**", "/img/**","/image","/error");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception{
@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")  // 패스워드 파라미터명 설정
                 .loginProcessingUrl("/auth/loginProc")
                 .failureHandler(AuthFailureHandler) // 로그인 실패 핸들러
-                .defaultSuccessUrl("/board/list")
+                .defaultSuccessUrl("/")
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
