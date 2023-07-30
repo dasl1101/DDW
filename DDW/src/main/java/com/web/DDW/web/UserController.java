@@ -39,10 +39,7 @@ public class UserController {
         binder.addValidators(NickNameValidator);
         binder.addValidators(NameValidator);
     }
-    @GetMapping("/user/loginPage")
-    public String loginPage(){
-        return "/user/loginPage";
-    }
+
 
     //로그인
     @GetMapping("/auth/login")
@@ -52,7 +49,7 @@ public class UserController {
         model.addAttribute("error",error);
         model.addAttribute("exception", exception);
 
-        return "/user/user-login";
+        return "user/user-login";
     }
 
     // 로그아웃
@@ -101,7 +98,7 @@ public class UserController {
         if (user != null) {
         model.addAttribute("user", user);
         }
-    return "/user/user-modify";
+    return "user/user-modify";
     }
 
 }
