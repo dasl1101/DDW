@@ -21,13 +21,6 @@ repositories {
 	mavenCentral()
 }
 
-tasks.getByName<Jar>("jar"){
-	enabled = false
-}
-tasks.bootJar {
-	enabled = true
-	mainClassName = "com.web.DDW.DdwApplication"
-}
 dependencies {
 	//thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
