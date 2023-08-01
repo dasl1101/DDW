@@ -24,7 +24,7 @@ cache:
 # 프로젝트 내에 권한이 추가된 gradlew를 활용하여 clean, build를 진행한다.
 script: "./gradlew clean build"
 
-# CI 실행 완료 시 작성한 이메일로 알람
+# CI 실행 완료 시 작성한 이메일로 알림
 notifications:
   email:
     recipients:
