@@ -9,18 +9,25 @@ DDW는 프로그램 등의 데이터 상품을 등록하고 판매할 수 있는
 ## 프로젝트 기능
 * 게시판 - CRUD 기능, 파일 업로드, 썸네일 업로드, 페이징, 조회수  
 * 회원 - Security 회원가입 및 로그인, OAuth 2.0 구글로그인, 회원 정보 수정 및 탈퇴, 유효성 검사  
-* 댓글 - CRUD 기능  
+* 댓글 - CRUD 기능
 
+  
+![image](https://github.com/dasl1101/DDW/assets/102366257/fdec49d8-79b0-4abf-9656-b33d56c045b1)  
+상품 리스트  
+  
+![image](https://github.com/dasl1101/DDW/assets/102366257/731c24d3-e59b-47de-9377-5b30b63a44b9)  
+커뮤니티 게시판  
 
 ## 기술 스택
+기술 설명 및 선택한 이유 ( https://dsdsds.tistory.com/118 )
 
 ### 백엔드
 * JAVA 11  
-* SpringBoot  
+* SpringBoot 2.7.12  
 * JPA(Spring Data JPA)  
 * Spring Security  
 * OAuth 2.0  
-* Gradle  
+* Gradle 7.6.1  
 
 ### DB
 * MariaDB  
@@ -30,7 +37,7 @@ DDW는 프로그램 등의 데이터 상품을 등록하고 판매할 수 있는
 * Html/Css  
 * JavaScript  
 * Summernote  
-* Bootstrap  
+* Bootstrap 5.0.2  
 
 ### 인프라
 * AWS(EC2, RDS)  
